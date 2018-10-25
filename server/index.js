@@ -6,13 +6,11 @@ const { Nuxt, Builder } = require('nuxt')
 require('dotenv').config()
 
 const app = new Koa()
-// const router = new Router({ prefix: '/api' })
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
-// router.post('/testo', async (ctx, next) => {
-//   console.log('Context!', ctx.req)
-// })
+process.env.DEBUG = 'nuxt:*'
+
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
