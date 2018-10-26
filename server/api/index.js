@@ -10,7 +10,7 @@ router.post('/auth', async (ctx, next) => {
   })
   const body = ctx.request.body
   const auth = await axios.post(
-    'https://knot.test/oauth/token',
+    `${process.env.BASE_URL}/oauth/token`,
     {
       grant_type: 'password',
       client_id: process.env.KNOT_CLIENT_ID,
