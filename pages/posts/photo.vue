@@ -36,10 +36,10 @@
 
 <script>
 import axios from 'axios'
-import { getToken } from '~/utils/auth'
 import objectToFormData from 'object-to-formdata'
 import AddLocation from '~/components/AddLocation'
 import NavigationBar from '~/components/NavigationBar'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'NewPhotoPost',
@@ -64,6 +64,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addPhotoPost']),
     goBack() {
       window.history.length > 1
         ? this.$router.go(-1)
@@ -76,20 +77,12 @@ export default {
       this.addingLocation = false
       this.post = Object.assign({}, this.post, { location: place })
     },
-    newPhotoPost () {
+    async newPhotoPost () {
       this.posting = true
       const formData = objectToFormData(this.post)
-      axios({
-        method: 'POST',
-        url: `${process.env.BASE_URL}/api/posts/new/photo`,
-        headers: {
-          'Authorization': `Bearer ${getToken()}`
-        },
-        data: formData
-      }).then(res => {
-        this.posting = false
-        this.$router.push('/')
-      })
+      await this.addPhotoPost(formData)
+      this.posting = false
+      this.$router.push('/')
     }
   }
 }
