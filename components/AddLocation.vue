@@ -4,7 +4,7 @@
       <span slot="title">Nearby Places</span>
       <div slot="left-buttons" @click="hide">Cancel</div>
     </navigation-bar>
-    <ul class="nearby-list bg-white list-reset overflow-y-auto relative">
+    <ul class="nearby-list bg-white list-reset overflow-y-auto scrolling-touch relative">
       <li v-for="place in nearby" @click="chooseLocation(place)" :key="place.id" class="cursor-pointer flex flex-col justify-center px-5 py-2 leading-normal border-b border-grey-light">
         <span>{{ place.name }}</span>
         <span class="text-grey text-xs">
@@ -56,6 +56,8 @@ export default {
 .dashboard-add-location {
   display: grid;
   grid-template-rows: 44px 1fr;
+  grid-template-rows: calc(44px + constant(safe-area-inset-top)) 1fr;
+  grid-template-rows: calc(44px + env(safe-area-inset-top)) 1fr;
   z-index: 99999;
 }
 .nearby-list {

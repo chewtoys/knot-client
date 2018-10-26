@@ -20,9 +20,7 @@ export default {
 .navigation-bar {
   height: 44px;
   padding-top: 20px;
-  /* Status bar height on iOS 11.0 */
   padding-top: constant(safe-area-inset-top);
-  /* Status bar height on iOS 11+ */
   padding-top: env(safe-area-inset-top);
   z-index: 99;
   .left-buttons {

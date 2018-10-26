@@ -1,5 +1,5 @@
 <template>
-  <div class="friendships overflow-y-auto">
+  <div class="friendships overflow-y-auto scrolling-touch">
     <ul class="list-reset" v-if="friendships.outgoing.length">
       <li class="text-grey-darker bg-grey-light py-2 text-sm uppercase tracking-wide font-semibold px-4">Sent Requests</li>
       <li v-for="sent in friendships.outgoing" :key="sent.id" class="flex items-center p-4 border-b border-grey-lighter">
@@ -60,11 +60,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.dashboard-friends {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 44px 1fr 48px;
-}
-</style>

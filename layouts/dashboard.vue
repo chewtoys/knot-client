@@ -53,12 +53,18 @@ export default {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 44px 1fr 48px;
+  grid-template-rows: calc(44px + constant(safe-area-inset-top)) 1fr calc(48px + constant(safe-area-inset-bottom));
+  grid-template-rows: calc(44px + env(safe-area-inset-top)) 1fr calc(48px + env(safe-area-inset-bottom));
 }
 
 .new-post-menu {
   top: 44px;
+  top: calc(44px + constant(safe-area-inset-top));
+  top: calc(44px + env(safe-area-inset-top));
   right: 0;
   bottom: 48px;
+  bottom: calc(48px + constant(safe-area-inset-bottom));
+  bottom: calc(48px + env(safe-area-inset-bottom));
   left: 0;
   background: rgba(#000, 0.75);
   z-index: 99;

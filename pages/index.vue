@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-y-auto">
+  <div class="overflow-y-auto scrolling-touch">
     <activity-feed :posts="feed" />
   </div>
 </template>
@@ -21,8 +21,9 @@ export default {
     ...mapGetters(['user', 'feed'])
   },
   mounted() {
-    console.log('HENLO')
-    this.fetchFeed()
+    this.$nextTick(() => {
+      this.fetchFeed()
+    })
   },
   methods: {
     ...mapActions(['fetchFeed'])
