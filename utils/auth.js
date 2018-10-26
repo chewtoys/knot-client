@@ -9,6 +9,7 @@ export const getToken = req => {
   if (!req) {
     return Cookie.get('access_token')
   } else {
+    console.log(req.headers)
     return req.headers.hasOwnProperty('cookie')
       ? req.headers.cookie
           .split(';')
