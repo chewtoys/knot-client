@@ -1,5 +1,4 @@
 process.env.DEBUG = 'nuxt:*'
-
 const pkg = require('./package')
 
 module.exports = {
@@ -51,17 +50,14 @@ module.exports = {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
   ],
   /*
   ** Axios module configuration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-  },
-
-  env: {
-    baseUrl: process.env.BASE_URL || 'https://knot.test'
   },
 
   /*

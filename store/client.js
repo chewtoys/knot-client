@@ -7,7 +7,7 @@ axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 const client = {
   auth: false,
   proxy: false,
-  apiRoot: process.env.baseUrl,
+  apiRoot: process.env.BASE_URL,
   withAuth() {
     client.auth = true
     return client
