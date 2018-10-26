@@ -13,7 +13,6 @@
           <div class="w-12 h-12 relative mr-4">
             <picture-input
               ref="pictureInput"
-              @change="setFile"
               :hideChangeButton="true"
               :plain="true"
               accept="image/*"
@@ -40,6 +39,7 @@ import objectToFormData from 'object-to-formdata'
 import AddLocation from '~/components/AddLocation'
 import NavigationBar from '~/components/NavigationBar'
 import { mapActions } from 'vuex'
+import { processImage } from '~/utils/process-image'
 
 export default {
   name: 'NewPhotoPost',
@@ -59,30 +59,31 @@ export default {
     }
   },
   computed: {
-    locationButtonLabel () {
-      return Object.keys(this.post.location).length ? this.post.location.name : 'I\'m at...'
+    locationButtonLabel() {
+      return Object.keys(this.post.location).length
+        ? this.post.location.name
+        : "I'm at..."
     }
   },
   methods: {
     ...mapActions(['addPhotoPost']),
     goBack() {
-      window.history.length > 1
-        ? this.$router.go(-1)
-        : this.$router.push('/')
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     },
-    setFile () {
-      this.post.image = this.$refs.pictureInput.file
-    },
-    attachLocation (place) {
+    attachLocation(place) {
       this.addingLocation = false
       this.post = Object.assign({}, this.post, { location: place })
     },
-    async newPhotoPost () {
+    newPhotoPost() {
       this.posting = true
-      const formData = objectToFormData(this.post)
-      await this.addPhotoPost(formData)
-      this.posting = false
-      this.$router.push('/')
+      const { file, image } = this.$refs.pictureInput
+      processImage(file, image, async blob => {
+        this.post.image = blob
+        const formData = objectToFormData(this.post)
+        await this.addPhotoPost(formData)
+        this.posting = false
+        this.$router.push('/')
+      })
     }
   }
 }
