@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-y-auto">
-    <activity-feed :posts="feed"></activity-feed>
+    <activity-feed :posts="feed" />
   </div>
 </template>
 
@@ -20,11 +20,12 @@ export default {
   computed: {
     ...mapGetters(['user', 'feed'])
   },
+  mounted() {
+    console.log('HENLO')
+    this.fetchFeed()
+  },
   methods: {
     ...mapActions(['fetchFeed'])
-  },
-  mounted() {
-    this.fetchFeed()
   }
 }
 </script>

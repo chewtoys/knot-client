@@ -1,6 +1,8 @@
 .auth-text-input {
   @apply mb-3 py-2 text-sm border-b-2 border-red-lighter;
   transition: border-color 150ms ease;
+  appearance: none;
+  border-radius: 0;
   &:focus {
     @apply border-red;
     outline: none;
