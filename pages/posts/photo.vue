@@ -81,7 +81,7 @@ export default {
       const formData = objectToFormData(this.post)
       axios({
         method: 'POST',
-        url: `${process.env.baseUrl}/api/posts/new/photo`,
+        url: `${process.env.BASE_URL}/api/posts/new/photo`,
         headers: {
           'Authorization': `Bearer ${getToken()}`
         },
