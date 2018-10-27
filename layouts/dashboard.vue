@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard h-screen bg-grey-lightest relative">
     <navigation-bar>
-      <img src="~assets/img/knot.svg" slot="title" class="h-6" />
+      <img src="~assets/img/knot.svg" slot="title" class="h-6 cursor-pointer" @click="reload" />
     </navigation-bar>
     <nuxt/>
     <transition name="fade">
@@ -43,6 +43,9 @@ export default {
     ...mapActions(['fetchUser', 'fetchFriendships', 'fetchCurrentLocation']),
     showNewPostMenu() {
       this.newPostMenuShowing = !this.newPostMenuShowing
+    },
+    reload() {
+      window.location.reload(true)
     }
   }
 }
