@@ -7,7 +7,8 @@ const state = {
   friendships: {
     friends: [],
     requests: [],
-    outgoing: []
+    outgoing: [],
+    suggested: []
   }
 }
 
@@ -55,13 +56,20 @@ const actions = {
         commit(SET_FRIENDSHIPS, res)
       })
   },
+  requestFriendship({ commit }, userId) {
+    return client
+      .withAuth()
+      .post(`/api/friendships/add/${userId}`)
+      .then(res => {
+        commit(SET_FRIENDSHIPS, res)
+      })
+  },
   acceptFriendship({ commit }, senderId) {
     return client
       .withAuth()
       .post(`/api/friendships/accept/${senderId}`)
       .then(res => {
         commit(SET_FRIENDSHIPS, res)
-        resolve(res)
       })
   },
   denyFriendship({ commit }, senderId) {
@@ -70,7 +78,6 @@ const actions = {
       .post(`/api/friendships/deny/${senderId}`)
       .then(res => {
         commit(SET_FRIENDSHIPS, res)
-        resolve(res)
       })
   }
 }

@@ -32,6 +32,18 @@
         <div class="font-medium">{{ friend.full_name }}</div>
       </li>
     </ul>
+    <ul class="list-reset" v-if="friendships.suggested.length">
+      <li class="text-grey-darker bg-grey-light py-2 text-sm uppercase tracking-wide font-semibold px-4">Suggested</li>
+      <li v-for="user in friendships.suggested" :key="user.id" class="flex items-center p-4 border-b border-grey-lighter">
+        <avatar :user="user" class="rounded-sm mr-2"></avatar>
+        <div class="font-medium">{{ user.full_name }}</div>
+        <div class="ml-auto">
+          <button class="text-grey-darkest bg-grey-light rounded-sm p-2 text-xs" @click="requestFriendship(user.id)">
+            Send Request
+          </button>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -51,11 +63,15 @@ export default {
   computed: {
     ...mapGetters(['friendships'])
   },
+  mounted() {
+    this.fetchFriendships()
+  },
   methods: {
     ...mapActions([
       'fetchFriendships',
       'acceptFriendship',
-      'denyFriendship'
+      'denyFriendship',
+      'requestFriendship'
     ])
   }
 }
