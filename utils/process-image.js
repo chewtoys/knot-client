@@ -97,7 +97,6 @@ const resizeImage = (dataUrl, cb) => {
   img.onload = function() {
     const { width, height } = img
     let newWidth, newHeight
-    const shouldResize = width > maxWidth || height > maxHeight
     if (width > height) {
       newHeight = height * (maxWidth / width)
       newWidth = maxWidth
@@ -112,7 +111,7 @@ const resizeImage = (dataUrl, cb) => {
     ctx.drawImage(this, 0, 0, newWidth, newHeight)
     canvas.toBlob(blob => {
       cb(blob)
-    }, 'image/jpeg')
+    }, 'image/png')
   }
 }
 

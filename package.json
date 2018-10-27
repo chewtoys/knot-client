@@ -25,7 +25,6 @@
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "lazysizes": "^4.1.4",
-    "local-storage": "^1.4.2",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "nuxt": "^2.0.0",
