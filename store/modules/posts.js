@@ -64,11 +64,16 @@ const actions = {
         })
       })
   },
-  addTextPost({ commit, dispatch }, post) {
+  addTextPost({ dispatch }, post) {
     client.withAuth().post('/api/posts/new/text', post)
   },
-  addPhotoPost(_ctx, formData) {
-    client.withAuth().post('/api/posts/new/photo', formData)
+  addPhotoPost({ dispatch }, formData) {
+    client
+      .withAuth()
+      .post('/api/posts/new/photo', formData)
+      .then(_res => {
+        dispatch('fetchFeed')
+      })
   }
 }
 

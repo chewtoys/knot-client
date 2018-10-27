@@ -16,7 +16,7 @@
               :hideChangeButton="true"
               :plain="true"
               accept="image/*"
-              size="10"
+              size="20"
               width="120"
               height="120"
               class="picture-input border border-grey-light"

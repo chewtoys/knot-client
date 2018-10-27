@@ -111,7 +111,7 @@ const resizeImage = (dataUrl, cb) => {
     ctx.drawImage(this, 0, 0, newWidth, newHeight)
     canvas.toBlob(blob => {
       cb(blob)
-    }, 'image/png')
+    }, 'image/jpeg')
   }
 }
 
