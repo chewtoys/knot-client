@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard h-screen bg-grey-lightest relative">
+  <div class="dashboard h-screen bg-grey-lighter relative">
     <navigation-bar>
       <img src="~assets/img/knot.svg" slot="title" class="h-6 cursor-pointer" @click="reload" />
     </navigation-bar>
@@ -8,7 +8,7 @@
       <div class="new-post-menu absolute flex flex-col items-center" v-show="newPostMenuShowing">
         <div class="mt-auto p-4 flex flex-col items-center w-full text-center">
           <nuxt-link to="/posts/photo" class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Photo Post</nuxt-link>
-          <nuxt-link to="/posts/photo" class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Text Post</nuxt-link>
+          <nuxt-link to="/posts/text" class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Text Post</nuxt-link>
         </div>
       </div>
     </transition>

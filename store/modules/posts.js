@@ -65,7 +65,12 @@ const actions = {
       })
   },
   addTextPost({ dispatch }, post) {
-    client.withAuth().post('/api/posts/new/text', post)
+    client
+      .withAuth()
+      .post('/api/posts/new/text', post)
+      .then(_res => {
+        dispatch('fetchFeed')
+      })
   },
   addPhotoPost({ dispatch }, formData) {
     client
