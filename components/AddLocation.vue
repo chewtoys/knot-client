@@ -61,14 +61,6 @@ export default {
   z-index: 99999;
 }
 .nearby-list {
-  &-enter-active,
-  &-leave-active {
-    transition: transform 350ms cubic-bezier(0.42, 0, 0.58, 1);
-  }
-  &-enter,
-  &-leave-to {
-    transform: translate3d(0, 100%, 0);
-  }
   ul {
     li {
       border-bottom: 1px solid #eee;

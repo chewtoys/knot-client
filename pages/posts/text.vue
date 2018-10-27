@@ -5,14 +5,18 @@
       <div class="button is-primary is-inverted is-outlined is-small" slot="left-buttons" @click="goBack">Cancel</div>
     </navigation-bar>
     <div class="new-post-inner">
-      <transition name="nearby-list">
+      <transition name="slide-up">
         <add-location v-show="addingLocation" @locationChosen="attachLocation" @hide="addingLocation = false"></add-location>
+      </transition>
+      <transition name="slide-up">
+        <add-accompaniments :accompaniments="post.accompaniments" @friendsSelected="attachAccompaniments" v-show="addingFriends" @hide="addingFriends = false"></add-accompaniments>
       </transition>
       <form @submit.prevent="newTextPost">
         <div class="flex p-5">
           <textarea class="flex-grow text-sm resize-none" rows="8" v-model="post.body" placeholder="What's on your mind?"></textarea>
         </div>
         <div class="px-5">
+          <button type="button" class="w-full bg-grey-light px-3 py-3 text-grey-darker rounded-sm mb-2" @click.prevent="addingFriends = true">{{ accompanimentsButtonLabel }}</button>
           <button type="button" class="w-full bg-grey-light px-3 py-3 text-grey-darker rounded-sm mb-2" @click.prevent="addingLocation = true">{{ locationButtonLabel }}</button>
           <button class="w-full bg-primary px-3 py-3 text-white rounded-sm" :disabled="posting" type="submit">Save Post</button>
         </div>
@@ -24,12 +28,14 @@
 <script>
 import axios from 'axios'
 import AddLocation from '~/components/AddLocation'
+import AddAccompaniments from '~/components/AddAccompaniments'
 import NavigationBar from '~/components/NavigationBar'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'NewTextPost',
   components: {
+    AddAccompaniments,
     AddLocation,
     NavigationBar
   },
@@ -38,9 +44,11 @@ export default {
     return {
       posting: false,
       addingLocation: false,
+      addingFriends: false,
       post: {
         body: '',
-        location: {}
+        location: {},
+        accompaniments: []
       }
     }
   },
@@ -49,6 +57,18 @@ export default {
       return Object.keys(this.post.location).length
         ? this.post.location.name
         : "I'm at..."
+    },
+    accompanimentsButtonLabel() {
+      const withCount = this.post.accompaniments.length
+      if (withCount) {
+        if (withCount === 1) {
+          return `With ${this.post.accompaniments[0].first_name}`
+        } else {
+          return `With ${withCount} Friends`
+        }
+      } else {
+        return "I'm with..."
+      }
     }
   },
   methods: {
@@ -56,13 +76,25 @@ export default {
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     },
+    attachAccompaniments(people) {
+      this.addingFriends = false
+      this.post.accompaniments = people
+    },
     attachLocation(place) {
       this.addingLocation = false
       this.post = Object.assign({}, this.post, { location: place })
     },
     async newTextPost() {
       this.posting = true
-      await this.addTextPost(this.post)
+      await this.addTextPost({
+        ...this.post,
+        accompaniments: this.post.accompaniments.map(friend => {
+          return {
+            user_id: friend.id,
+            name: friend.full_name
+          }
+        })
+      })
       this.posting = false
       this.$router.push('/')
     }
