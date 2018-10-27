@@ -19,9 +19,8 @@ export default {
 <style lang="scss">
 .navigation-bar {
   height: 44px;
-  padding-top: 20px;
-  padding-top: constant(safe-area-inset-top);
-  padding-top: env(safe-area-inset-top);
+  height: calc(44px + constant(safe-area-inset-top));
+  height: calc(44px + env(safe-area-inset-top));
   z-index: 99;
   .left-buttons {
     position: absolute;
