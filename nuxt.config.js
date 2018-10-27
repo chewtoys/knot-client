@@ -18,7 +18,7 @@ module.exports = {
           'viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
       },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
-      { name: 'apple-mobile-web-app-title', content: 'Knot' }
+      { name: 'apple-mobile-web-app-title', content: 'Knot' },
       {
         name: 'apple-mobile-web-app-status-bar-style',
         content: 'black-translucent'
@@ -29,9 +29,21 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'apple-touch-startup-image', href: '/launch.png' },
       { rel: 'apple-touch-icon', href: '/touch-icon-phone.png' },
-      { rel: 'apple-touch-icon', sizes: '152x152', href: '/touch-icon-ipad.png' },
-      { rel: 'apple-touch-icon', sizes: '180x180', href: '/touch-icon-iphone-retina.png' },
-      { rel: 'apple-touch-icon', sizes: '167x167', href: '/touch-icon-ipad-retina.png' },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '152x152',
+        href: '/touch-icon-ipad.png'
+      },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/touch-icon-iphone-retina.png'
+      },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '167x167',
+        href: '/touch-icon-ipad-retina.png'
+      },
       {
         rel: 'stylesheet',
         href:
