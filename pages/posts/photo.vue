@@ -47,6 +47,7 @@ export default {
     AddLocation,
     NavigationBar
   },
+  scrollToTop: true,
   data() {
     return {
       posting: false,

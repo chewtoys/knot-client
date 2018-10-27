@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-grey-lighter border-t border-grey-light flex justify-center items-center">
+  <div class="footer-bar bg-grey-lighter border-t border-grey-light flex justify-center items-center">
       <nuxt-link to="/" class="flex flex-col text-xxs no-underline text-grey-darkest mx-6">
         <img src="~/assets/img/icons/timeline.svg" class="h-5 mb-1" />
         <span>Timeline</span>
@@ -17,6 +17,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.footer-bar {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
 .toggle-menu {
   transition: transform 150ms ease;
   outline: none;

@@ -3,7 +3,7 @@ import ls from 'local-storage'
 
 export const setToken = token => {
   if (process.server) return
-  Cookie.set('access_token', token)
+  Cookie.set('access_token', token, { expires: 365 })
   ls('access_token', token)
 }
 
