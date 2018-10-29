@@ -24,7 +24,12 @@ export default {
     Avatar,
     LiveDate
   },
-  props: ['comments']
+  props: ['comments'],
+  computed: {
+    hasLocation() {
+      return this.comment.location && this.comment.location.city
+    }
+  }
 }
 </script>
 

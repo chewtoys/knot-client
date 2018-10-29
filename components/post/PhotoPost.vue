@@ -15,7 +15,7 @@
         --><span v-if="post.accompaniments.length > 2 && index < post.accompaniments.length - 2">, </span><!--
         --><span v-if="post.accompaniments.length >= 2 && index === post.accompaniments.length - 2"> and </span>
       </span>
-      <span v-if="hasLocation">at <strong>{{ post.location.name }}</strong></span>
+      <span v-if="post.location">at <strong>{{ post.location.name }}</strong></span>
     </div>
     <reactions :post="post" v-if="post.reactions.length"></reactions>
     <comments-list :comments="post.comments" v-if="post.comments.length"></comments-list>
@@ -37,9 +37,6 @@ export default {
   },
   props: ['post'],
   computed: {
-    hasLocation() {
-      return this.post.location && Object.keys(this.post.location).length
-    },
     aspectRatio() {
       return `${(this.post.postable.height / this.post.postable.width) * 100}%`
     }
