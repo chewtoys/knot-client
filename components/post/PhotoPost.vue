@@ -38,7 +38,7 @@ export default {
   props: ['post'],
   computed: {
     hasLocation() {
-      return Object.keys(this.post.location).length
+      return this.post.hasOwnProperty('location') && Object.keys(this.post.location).length
     },
     aspectRatio() {
       return `${(this.post.postable.height / this.post.postable.width) * 100}%`

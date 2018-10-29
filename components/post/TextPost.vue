@@ -32,7 +32,7 @@ export default {
   props: ['post'],
   computed: {
     hasLocation() {
-      return Object.keys(this.post.location).length
+      return this.post.hasOwnProperty('location') && Object.keys(this.post.location).length
     }
   }
 }
