@@ -10,7 +10,7 @@
         --><span v-if="post.accompaniments.length > 2 && index < post.accompaniments.length - 2">, </span><!--
         --><span v-if="post.accompaniments.length >= 2 && index === post.accompaniments.length - 2"> and </span>
       </span>
-      <span v-if="post.location">at <strong>{{ post.location.name }}</strong></span>
+      <span v-if="hasLocation">at <strong>{{ post.location.name }}</strong></span>
     </div>
     <reactions :post="post" v-show="post.reactions.length"></reactions>
     <comments-list :comments="post.comments" v-show="post.comments.length"></comments-list>
@@ -29,7 +29,12 @@ export default {
     CommentsList,
     Reactions
   },
-  props: ['post']
+  props: ['post'],
+  computed: {
+    hasLocation() {
+      return Object.keys(post.location).length
+    }
+  }
 }
 </script>
 <style lang="scss">

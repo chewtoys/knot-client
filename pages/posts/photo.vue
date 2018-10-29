@@ -104,7 +104,7 @@ export default {
       const { file, image } = this.$refs.pictureInput
       processImage(file, image, async blob => {
         this.post.image = blob
-        const formData = objectToFormData({
+        const postData = {
           ...this.post,
           accompaniments: this.post.accompaniments.map(friend => {
             return {
@@ -112,7 +112,11 @@ export default {
               name: friend.full_name
             }
           })
-        }, { indices: true })
+        }
+        if (!postData.accompaniments.length) {
+          delete postData.accompaniments
+        }
+        const formData = objectToFormData(postData, { indices: true })
         await this.addPhotoPost(formData)
         this.posting = false
         this.$router.push('/')
