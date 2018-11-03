@@ -73,6 +73,7 @@ export default {
         counterEl: false,
         arrowEl: false,
         zoomEl: false,
+        closeEl: false,
         index: 0,
         getThumbBoundsFn() {
           return item.thumb
