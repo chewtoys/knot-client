@@ -81,6 +81,7 @@ export default {
       }
       const image = {
         src: item.src,
+        msrc: item.src,
         w: item.w,
         h: item.h
       }
