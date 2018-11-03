@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard h-screen bg-grey-lighter relative">
+    <PhotoSwipe />
     <navigation-bar>
       <img src="~assets/img/knot.svg" slot="title" class="h-6 cursor-pointer" @click="reload" />
     </navigation-bar>
@@ -20,11 +21,13 @@
 import { mapActions } from 'vuex'
 import NavigationBar from '~/components/NavigationBar'
 import FooterBar from '~/components/FooterBar'
+import PhotoSwipe from '~/components/PhotoSwipe.vue'
 export default {
   middleware: 'auth',
   components: {
     FooterBar,
-    NavigationBar
+    NavigationBar,
+    PhotoSwipe
   },
   data() {
     return {

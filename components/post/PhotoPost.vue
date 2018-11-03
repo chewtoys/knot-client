@@ -3,7 +3,7 @@
     <post-header :post="post"></post-header>
     <div class="h-0 relative bg-grey-lightest" :style="{ paddingBottom: aspectRatio}">
       <div class="absolute pin-t pin-l w-full h-full">
-        <img :data-src="post.postable.image_url" :alt="post.postable.body" class="lazyload w-full">
+        <img :data-src="post.postable.image_url" :alt="post.postable.body" class="lazyload w-full" @click="openPhoto(post.postable, $event)">
       </div>
     </div>
     <div class="p-5 text-grey-darkest leading-normal text-sm" v-if="post.postable.body">
@@ -42,6 +42,21 @@ export default {
     },
     aspectRatio() {
       return `${(this.post.postable.height / this.post.postable.width) * 100}%`
+    }
+  },
+  methods: {
+    openPhoto(post, e) {
+      const targetRect = e.target.getBoundingClientRect()
+      this.$bus.$emit('OPEN_IMAGE', {
+        src: post.image_url,
+        w: post.width,
+        h: post.height,
+        thumb: {
+          x: targetRect.left,
+          y: targetRect.top,
+          w: targetRect.width
+        }
+      })
     }
   }
 }
