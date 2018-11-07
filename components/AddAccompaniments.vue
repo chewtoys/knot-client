@@ -1,20 +1,34 @@
 <template>
   <div class="dashboard-page dashboard-add-accompaniments fixed pin-t pin-l w-screen h-screen">
-    <navigation-bar>
+    <NavigationBar>
       <span slot="title">People</span>
-      <div slot="left-buttons" @click="hide">Cancel</div>
-      <div slot="right-buttons" @click="finishedSelecting">Done</div>
-    </navigation-bar>
+      <div
+        slot="left-buttons"
+        @click="hide">Cancel</div>
+      <div
+        slot="right-buttons"
+        @click="finishedSelecting">Done</div>
+    </NavigationBar>
     <ul class="people-list bg-white list-reset overflow-y-auto scrolling-touch relative">
-      <li v-for="friend in friendships.friends" @click="friendSelected(friend)" :key="friend.id" class="cursor-pointer flex items-center p-4 leading-normal border-b border-grey-light">
-        <avatar :user="friend" class="rounded-sm mr-2"></avatar>
+      <li
+        v-for="friend in friendships.friends"
+        :key="friend.id"
+        class="cursor-pointer flex items-center p-4 leading-normal border-b border-grey-light"
+        @click="friendSelected(friend)">
+        <Avatar
+          :user="friend"
+          class="rounded-sm mr-2" />
         <div class="font-medium">{{ friend.full_name }}</div>
-        <div class="ml-auto leading-none" v-show="friendIsSelected(friend)">
-          <img src="~/assets/img/icons/check.svg" class="h-4 relative nudge-t" />
+        <div
+          v-show="friendIsSelected(friend)"
+          class="ml-auto leading-none">
+          <img
+            src="~/assets/img/icons/check.svg"
+            class="h-4 relative nudge-t">
         </div>
       </li>
     </ul>
-</div>
+  </div>
 </template>
 
 <script>
@@ -27,7 +41,14 @@ export default {
     Avatar,
     NavigationBar
   },
-  props: ['accompaniments'],
+  props: {
+    accompaniments: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   data() {
     return {
       selectedPeople: []
@@ -51,7 +72,9 @@ export default {
       }
     },
     friendIsSelected(friend) {
-      return this.selectedPeople.findIndex(person => person.id === friend.id) > -1
+      return (
+        this.selectedPeople.findIndex(person => person.id === friend.id) > -1
+      )
     },
     finishedSelecting() {
       this.$emit('friendsSelected', this.selectedPeople)

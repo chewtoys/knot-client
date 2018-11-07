@@ -1,11 +1,17 @@
 <template>
   <div class="dashboard-page dashboard-add-location fixed pin-t pin-l w-screen h-screen">
-    <navigation-bar>
+    <NavigationBar>
       <span slot="title">Nearby Places</span>
-      <div slot="left-buttons" @click="hide">Cancel</div>
-    </navigation-bar>
+      <div
+        slot="left-buttons"
+        @click="hide">Cancel</div>
+    </NavigationBar>
     <ul class="nearby-list bg-white list-reset overflow-y-auto scrolling-touch relative">
-      <li v-for="place in nearby" @click="chooseLocation(place)" :key="place.id" class="cursor-pointer flex flex-col justify-center px-5 py-2 leading-normal border-b border-grey-light">
+      <li
+        v-for="place in nearby"
+        :key="place.id"
+        class="cursor-pointer flex flex-col justify-center px-5 py-2 leading-normal border-b border-grey-light"
+        @click="chooseLocation(place)">
         <span>{{ place.name }}</span>
         <span class="text-grey text-xs">
           <span v-if="place.categories[0]">{{ place.categories[0].name }}</span>
@@ -13,7 +19,7 @@
         </span>
       </li>
     </ul>
-</div>
+  </div>
 </template>
 
 <script>
@@ -25,14 +31,19 @@ export default {
     NavigationBar
   },
   computed: {
-    ...mapGetters([
-      'currentLocation',
-      'nearby'
-    ])
+    ...mapGetters(['currentLocation', 'nearby'])
+  },
+  mounted() {
+    if (this.currentLocation.lat) {
+      this.fetchNearby({
+        latitude: this.currentLocation.lat,
+        longitude: this.currentLocation.long
+      })
+    }
   },
   methods: {
     ...mapActions(['fetchNearby']),
-    chooseLocation (place) {
+    chooseLocation(place) {
       const locationObj = {
         lat: +parseFloat(place.location.lat).toFixed(6),
         long: +parseFloat(place.location.lng).toFixed(6),
@@ -40,13 +51,8 @@ export default {
       }
       this.$emit('locationChosen', locationObj)
     },
-    hide () {
+    hide() {
       this.$emit('hide')
-    }
-  },
-  mounted () {
-    if (this.currentLocation.lat) {
-      this.fetchNearby({latitude: this.currentLocation.lat, longitude: this.currentLocation.long})
     }
   }
 }

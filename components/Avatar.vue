@@ -1,5 +1,10 @@
 <template>
-  <img :src="src" :alt="user.name" :width="size" :height="size" class="avatar">
+  <img
+    :src="src"
+    :alt="user.name"
+    :width="size"
+    :height="size"
+    class="avatar">
 </template>
 <script>
 export default {
@@ -19,10 +24,9 @@ export default {
     }
   },
   computed: {
-    src () {
+    src() {
       return this.user.avatar_url ? this.user.avatar_url : this.fallback
     }
   }
 }
 </script>
-

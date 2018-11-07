@@ -1,7 +1,14 @@
 <template>
-<transition-group class="dashboard-activity-feed mx-auto w-full relative pt-4 px-2" name="dashboard-activity-feed" tag="div">
-  <component :is="getPostType(post)" :post="post" v-for="post in posts" :key="post.id"></component>
-</transition-group>
+  <transition-group
+    class="dashboard-activity-feed mx-auto w-full relative pt-4 px-2"
+    name="dashboard-activity-feed"
+    tag="div">
+    <component
+      v-for="post in posts"
+      :key="post.id"
+      :is="getPostType(post)"
+      :post="post" />
+  </transition-group>
 </template>
 <script>
 import TextPost from '~/components/post/TextPost.vue'
@@ -12,9 +19,16 @@ export default {
     TextPost,
     PhotoPost
   },
-  props: ['posts'],
+  props: {
+    posts: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   methods: {
-    getPostType (post) {
+    getPostType(post) {
       return post.postable_type.split('\\').pop()
     }
   }
@@ -34,5 +48,3 @@ export default {
   }
 }
 </style>
-
-
