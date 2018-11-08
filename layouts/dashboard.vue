@@ -14,12 +14,12 @@
         v-show="newPostMenuShowing"
         class="new-post-menu absolute flex flex-col items-center">
         <div class="mt-auto p-4 flex flex-col items-center w-full text-center">
-          <NuxtLink
+          <nuxt-link
             to="/posts/photo"
-            class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Photo Post</NuxtLink>
-          <NuxtLink
+            class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Photo Post</nuxt-link>
+          <nuxt-link
             to="/posts/text"
-            class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Text Post</NuxtLink>
+            class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Text Post</nuxt-link>
         </div>
       </div>
     </transition>

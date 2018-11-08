@@ -13,7 +13,7 @@
       <transition name="reactions">
         <AddReaction
           v-show="showReactions"
-          :id="post.id"
+          :post-id="post.id"
           @hide="showReactions = false" />
       </transition>
       <div

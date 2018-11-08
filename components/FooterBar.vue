@@ -1,25 +1,25 @@
 <template>
   <div class="footer-bar bg-grey-lighter border-t border-grey-light flex justify-center items-center">
-    <NuxtLink
+    <nuxt-link
       to="/"
       class="flex flex-col text-xxs no-underline text-grey-darkest mx-6">
       <img
         src="~/assets/img/icons/timeline.svg"
         class="h-5 mb-1">
       <span>Timeline</span>
-    </NuxtLink>
+    </nuxt-link>
     <button
       :class="{'menu-open': menuOpen}"
       class="toggle-menu rounded-full bg-red w-8 h-8 text-white block no-underline text-xl text-center flex justify-center items-center leading-none cursor-pointer mx-6"
       @click="$emit('addNewPost')">+</button>
-    <NuxtLink
+    <nuxt-link
       to="/friends"
       class="flex flex-col text-xxs no-underline text-grey-darkest mx-6">
       <img
         src="~/assets/img/icons/friends.svg"
         class="h-5 mb-1">
       <span>Friends</span>
-    </NuxtLink>
+    </nuxt-link>
   </div>
 </template>
 <script>
