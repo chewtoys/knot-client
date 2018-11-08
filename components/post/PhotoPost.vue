@@ -8,7 +8,8 @@
         <img
           :data-src="post.postable.image_url"
           :alt="post.postable.body"
-          class="lazyload w-full">
+          class="lazyload w-full"
+          @click="openPhoto(post.postable, $event)">
       </div>
     </div>
     <div
@@ -58,6 +59,21 @@ export default {
   computed: {
     aspectRatio() {
       return `${(this.post.postable.height / this.post.postable.width) * 100}%`
+    }
+  },
+  methods: {
+    openPhoto(post, e) {
+      const targetRect = e.target.getBoundingClientRect()
+      this.$bus.$emit('OPEN_IMAGE', {
+        src: post.image_url,
+        w: post.width,
+        h: post.height,
+        thumb: {
+          x: targetRect.left,
+          y: targetRect.top,
+          w: targetRect.width
+        }
+      })
     }
   }
 }

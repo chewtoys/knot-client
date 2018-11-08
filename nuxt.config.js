@@ -64,6 +64,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/event-bus.js', ssr: true },
     { src: '~/plugins/localStorage.js', ssr: false },
     { src: '~plugins/lazysizes.js', ssr: false },
     { src: '~plugins/vue-picture-input.js', ssr: false }
