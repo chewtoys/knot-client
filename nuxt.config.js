@@ -78,7 +78,7 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxt/purgecss'
+    'nuxt-purgecss'
   ],
   /*
   ** Axios module configuration
