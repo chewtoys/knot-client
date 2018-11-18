@@ -88,7 +88,9 @@ module.exports = {
   },
 
   purgeCSS: {
-    mode: 'postcss'
+    mode: 'postcss',
+    styleExtensions: ['.scss'],
+    whitelistPatterns: [/^pswp(.*)/]
   },
 
   /*
