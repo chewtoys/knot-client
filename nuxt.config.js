@@ -90,7 +90,7 @@ module.exports = {
   purgeCSS: {
     mode: 'postcss',
     styleExtensions: ['.scss'],
-    whitelistPatterns: [/^pswp(.*)/, /^fade-(.*)/, /^slide-up-(.*)/]
+    whitelistPatterns: [/^pswp(.*)/, /(.*)-(enter|leave)(-(active|to))?/]
   },
 
   /*
