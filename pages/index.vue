@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-y-auto scrolling-touch">
-    <activity-feed :posts="feed" />
+    <ActivityFeed :posts="feed" />
   </div>
 </template>
 

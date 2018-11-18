@@ -1,11 +1,11 @@
 <template>
   <div class="navigation-bar bg-red px-4 flex justify-center items-center text-white text-center relative">
     <div class="left-buttons text-sm leading-none cursor-pointer">
-      <slot name="left-buttons"></slot>
+      <slot name="left-buttons" />
     </div>
-    <h3 class="font-medium text-base leading-none"><slot name="title"></slot></h3>
+    <h3 class="font-medium text-base leading-none"><slot name="title" /></h3>
     <div class="right-buttons text-sm leading-none cursor-pointer">
-      <slot name="right-buttons"></slot>
+      <slot name="right-buttons" />
     </div>
   </div>
 </template>

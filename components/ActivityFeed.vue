@@ -1,7 +1,13 @@
 <template>
   <div class="dashboard-activity-feed mx-auto w-full relative pt-4 px-2">
-    <transition-group name="dashboard-activity-feed-posts" tag="div">
-      <component :is="getPostType(post)" :post="post" v-for="post in posts" :key="post.id"></component>
+    <transition-group
+      name="dashboard-activity-feed-posts"
+      tag="div">
+      <component
+        v-for="post in posts"
+        :key="post.id"
+        :is="getPostType(post)"
+        :post="post" />
     </transition-group>
   </div>
 </template>
@@ -14,10 +20,18 @@ export default {
     TextPost,
     PhotoPost
   },
-  props: ['posts'],
+  props: {
+    posts: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   computed: {
     feedHasImagePost() {
-      return !!this.posts.filter(post => this.getPostType(post) === 'PhotoPost').length
+      return !!this.posts.filter(post => this.getPostType(post) === 'PhotoPost')
+        .length
     }
   },
   methods: {

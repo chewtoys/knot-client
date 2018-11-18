@@ -1,8 +1,13 @@
 <template>
   <div class="dashboard-activity-feed-post-comment-form">
     <form @submit.prevent="doAddComment">
-      <textarea v-model="comment" placeholder="Add a comment..."></textarea>
-      <button class="button is-small is-primary" type="submit" :disabled="commentEmpty || postingComment">Send</button>
+      <textarea
+        v-model="comment"
+        placeholder="Add a comment..." />
+      <button
+        :disabled="commentEmpty || postingComment"
+        type="submit"
+        class="button is-small is-primary">Send</button>
     </form>
   </div>
 </template>
@@ -10,8 +15,13 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'CommentForm',
-  props: ['postId'],
-  data () {
+  props: {
+    postId: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
     return {
       comment: '',
       postingComment: false
@@ -19,15 +29,13 @@ export default {
   },
   computed: {
     ...mapGetters(['currentLocation']),
-    commentEmpty () {
+    commentEmpty() {
       return this.comment.trim() === ''
     }
   },
   methods: {
-    ...mapActions([
-      'addComment'
-    ]),
-    doAddComment () {
+    ...mapActions(['addComment']),
+    doAddComment() {
       this.postingComment = true
       let commentData = {
         id: this.postId,
@@ -36,7 +44,7 @@ export default {
       if (this.currentLocation.city !== null) {
         commentData.location = this.currentLocation
       }
-      this.addComment(commentData).then((res) => {
+      this.addComment(commentData).then(res => {
         this.postingComment = false
         this.comment = ''
       })
@@ -66,5 +74,3 @@ export default {
   }
 }
 </style>
-
-

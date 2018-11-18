@@ -1,13 +1,19 @@
 <template>
   <ul class="post-comments list-reset">
-    <li class="flex items-start px-5 py-4 border-t border-grey-light" v-for="comment in comments" :key="comment.id">
-      <Avatar :user="comment.user" :size="30" class="rounded-sm mr-2"></Avatar>
+    <li
+      v-for="comment in comments"
+      :key="comment.id"
+      class="flex items-start px-5 py-4 border-t border-grey-light">
+      <Avatar
+        :user="comment.user"
+        :size="30"
+        class="rounded-sm mr-2" />
       <div>
         <div class="text-sm mb-1">
           <strong>{{ comment.user.first_name }}: </strong> {{ comment.body }}
         </div>
         <div class="text-xs text-grey-dark">
-          <live-date :date="comment.created_at"></live-date>
+          <LiveDate :date="comment.created_at" />
           <span v-if="comment.location"> from {{ comment.location.city }}</span>
         </div>
       </div>
@@ -24,9 +30,18 @@ export default {
     Avatar,
     LiveDate
   },
-  props: ['comments']
+  props: {
+    comments: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
+  computed: {
+    hasLocation() {
+      return this.comment.location && this.comment.location.city
+    }
+  }
 }
 </script>
-
-<style lang="scss">
-</style>

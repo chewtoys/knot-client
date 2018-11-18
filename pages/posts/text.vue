@@ -1,24 +1,49 @@
 <template>
   <div class="dashboard-page new-post new-text-post h-screen">
-    <navigation-bar>
+    <NavigationBar>
       <span slot="title">New Text Post</span>
-      <div class="button is-primary is-inverted is-outlined is-small" slot="left-buttons" @click="goBack">Cancel</div>
-    </navigation-bar>
+      <div
+        slot="left-buttons"
+        class="button is-primary is-inverted is-outlined is-small"
+        @click="goBack">Cancel</div>
+    </NavigationBar>
     <div class="new-post-inner">
       <transition name="slide-up">
-        <add-location v-show="addingLocation" @locationChosen="attachLocation" @hide="addingLocation = false"></add-location>
+        <AddLocation
+          v-show="addingLocation"
+          @locationChosen="attachLocation"
+          @hide="addingLocation = false" />
       </transition>
       <transition name="slide-up">
-        <add-accompaniments :accompaniments="post.accompaniments" @friendsSelected="attachAccompaniments" v-show="addingFriends" @hide="addingFriends = false"></add-accompaniments>
+        <AddAccompaniments
+          v-show="addingFriends"
+          :accompaniments="post.accompaniments"
+          @friendsSelected="attachAccompaniments"
+          @hide="addingFriends = false" />
       </transition>
       <form @submit.prevent="newTextPost">
         <div class="flex p-5">
-          <textarea class="flex-grow text-sm resize-none" rows="8" v-model="post.body" placeholder="What's on your mind?"></textarea>
+          <textarea
+            v-model="post.body"
+            class="flex-grow text-sm resize-none"
+            rows="8"
+            placeholder="What's on your mind?" />
         </div>
         <div class="px-5">
-          <button type="button" class="w-full bg-grey-light px-3 py-3 text-grey-darker rounded-sm mb-2" @click.prevent="addingFriends = true">{{ accompanimentsButtonLabel }}</button>
-          <button type="button" class="w-full bg-grey-light px-3 py-3 text-grey-darker rounded-sm mb-2" @click.prevent="addingLocation = true">{{ locationButtonLabel }}</button>
-          <button class="w-full bg-primary px-3 py-3 text-white rounded-sm" :disabled="posting" type="submit">Save Post</button>
+          <button
+            :disabled="posting"
+            type="button"
+            class="w-full bg-grey-light px-3 py-3 text-grey-darker rounded-sm mb-2"
+            @click.prevent="addingFriends = true">{{ accompanimentsButtonLabel }}</button>
+          <button
+            :disabled="posting"
+            type="button"
+            class="w-full bg-grey-light px-3 py-3 text-grey-darker rounded-sm mb-2"
+            @click.prevent="addingLocation = true">{{ locationButtonLabel }}</button>
+          <button
+            :disabled="posting"
+            type="submit"
+            class="w-full bg-primary px-3 py-3 text-white rounded-sm">Save Post</button>
         </div>
       </form>
     </div>

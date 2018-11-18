@@ -1,7 +1,11 @@
 <template>
   <section class="auth h-screen bg-primary flex flex-col justify-center px-4">
-    <img src="~assets/img/knot.svg" class="h-12 mb-12" />
-    <form @submit.prevent="registerUser" class="flex flex-col p-4 bg-white rounded sm shadow mb-10">
+    <img
+      src="~assets/img/knot.svg"
+      class="h-12 mb-12">
+    <form
+      class="flex flex-col p-4 bg-white rounded sm shadow mb-10"
+      @submit.prevent="registerUser">
       <input
         v-model="user.first_name"
         type="text"
@@ -28,13 +32,13 @@
         class="auth-text-input"
         placeholder="Confirm password">
       <button
-      type="submit"
-      class="w-full bg-primary px-3 py-3 text-white rounded-sm mt-3">Sign Up</button>
+        type="submit"
+        class="w-full bg-primary px-3 py-3 text-white rounded-sm mt-3">Sign Up</button>
     </form>
     <div class="px-4 w-full">
       <nuxt-link
-      to="/auth/login"
-      class="block w-full bg-white px-3 py-3 text-primary text-center no-underline rounded-sm mt-3">Have an account? Sign in</nuxt-link>
+        to="/auth/login"
+        class="block w-full bg-white px-3 py-3 text-primary text-center no-underline rounded-sm mt-3">Have an account? Sign in</nuxt-link>
     </div>
   </section>
 </template>

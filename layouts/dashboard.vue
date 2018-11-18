@@ -1,19 +1,31 @@
 <template>
   <div class="dashboard h-screen bg-grey-lighter relative">
     <PhotoSwipe />
-    <navigation-bar>
-      <img src="~assets/img/knot.svg" slot="title" class="h-6 cursor-pointer" @click="reload" />
-    </navigation-bar>
+    <NavigationBar>
+      <img
+        slot="title"
+        src="~assets/img/knot.svg"
+        class="h-6 cursor-pointer"
+        @click="reload">
+    </NavigationBar>
     <nuxt/>
     <transition name="fade">
-      <div class="new-post-menu absolute flex flex-col items-center" v-show="newPostMenuShowing">
+      <div
+        v-show="newPostMenuShowing"
+        class="new-post-menu absolute flex flex-col items-center">
         <div class="mt-auto p-4 flex flex-col items-center w-full text-center">
-          <nuxt-link to="/posts/photo" class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Photo Post</nuxt-link>
-          <nuxt-link to="/posts/text" class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Text Post</nuxt-link>
+          <nuxt-link
+            to="/posts/photo"
+            class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Photo Post</nuxt-link>
+          <nuxt-link
+            to="/posts/text"
+            class="bg-white w-1/2 rounded-full px-4 py-3 text-primary my-3 no-underline block">Text Post</nuxt-link>
         </div>
       </div>
     </transition>
-    <footer-bar @addNewPost="showNewPostMenu" :menu-open="newPostMenuShowing" />
+    <FooterBar
+      :menu-open="newPostMenuShowing"
+      @addNewPost="showNewPostMenu" />
   </div>
 </template>
 
@@ -59,8 +71,12 @@ export default {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 44px 1fr 48px;
-  grid-template-rows: calc(44px + constant(safe-area-inset-top)) 1fr calc(48px + constant(safe-area-inset-bottom));
-  grid-template-rows: calc(44px + env(safe-area-inset-top)) 1fr calc(48px + env(safe-area-inset-bottom));
+  grid-template-rows: calc(44px + constant(safe-area-inset-top)) 1fr calc(
+      48px + constant(safe-area-inset-bottom)
+    );
+  grid-template-rows: calc(44px + env(safe-area-inset-top)) 1fr calc(
+      48px + env(safe-area-inset-bottom)
+    );
 }
 
 .new-post-menu {

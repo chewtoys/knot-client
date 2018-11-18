@@ -2,35 +2,59 @@
   <div class="dashboard-page new-post new-photo-post h-screen">
     <navigation-bar>
       <span slot="title">New Photo</span>
-      <div class="button is-primary is-inverted is-outlined is-small" slot="left-buttons" @click="goBack">Cancel</div>
+      <div
+        slot="left-buttons"
+        class="button is-primary is-inverted is-outlined is-small"
+        @click="goBack">Cancel</div>
     </navigation-bar>
     <div class="new-post-inner">
       <transition name="slide-up">
-        <add-location v-show="addingLocation" @locationChosen="attachLocation" @hide="addingLocation = false"></add-location>
+        <AddLocation
+          v-show="addingLocation"
+          @locationChosen="attachLocation"
+          @hide="addingLocation = false" />
       </transition>
       <transition name="slide-up">
-        <add-accompaniments :accompaniments="post.accompaniments" @friendsSelected="attachAccompaniments" v-show="addingFriends" @hide="addingFriends = false"></add-accompaniments>
+        <AddAccompaniments
+          v-show="addingFriends"
+          :accompaniments="post.accompaniments"
+          @friendsSelected="attachAccompaniments"
+          @hide="addingFriends = false" />
       </transition>
       <form @submit.prevent="newPhotoPost">
         <div class="flex p-5">
           <div class="w-12 h-12 relative mr-4">
-            <picture-input
+            <PictureInput
               ref="pictureInput"
-              :hideChangeButton="true"
+              :hide-change-button="true"
               :plain="true"
               accept="image/*"
               size="20"
               width="120"
               height="120"
-              class="picture-input border border-grey-light"
-            ></picture-input>
+              class="picture-input border border-grey-light" />
           </div>
-          <textarea class="flex-grow text-sm resize-none" rows="8" v-model="post.body" placeholder="Caption your photo"></textarea>
+          <textarea
+            v-model="post.body"
+            class="flex-grow text-sm resize-none"
+            rows="8"
+            placeholder="Caption your photo" />
         </div>
         <div class="px-5">
-          <button type="button" class="w-full bg-grey-light px-3 py-3 text-grey-darker rounded-sm mb-2" @click.prevent="addingFriends = true">{{ accompanimentsButtonLabel }}</button>
-          <button type="button" class="w-full bg-grey-light px-3 py-3 text-grey-darker rounded-sm mb-2" @click.prevent="addingLocation = true">{{ locationButtonLabel }}</button>
-          <button class="w-full bg-primary px-3 py-3 text-white rounded-sm" :disabled="posting" type="submit">Save Post</button>
+          <button
+            :disabled="posting"
+            type="button"
+            class="w-full bg-grey-light px-3 py-3 text-grey-darker rounded-sm mb-2"
+            @click.prevent="addingFriends = true">{{ accompanimentsButtonLabel }}</button>
+          <button
+            :disabled="posting"
+            type="button"
+            class="w-full bg-grey-light px-3 py-3 text-grey-darker rounded-sm mb-2"
+            @click.prevent="addingLocation = true">{{ locationButtonLabel }}</button>
+          <button
+            :disabled="posting"
+            type="submit"
+            class="w-full bg-primary px-3 py-3 text-white rounded-sm">Save Post</button>
         </div>
       </form>
     </div>
