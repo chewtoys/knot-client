@@ -38,6 +38,7 @@ export default {
   padding-bottom: env(safe-area-inset-bottom);
 }
 .toggle-menu {
+  -webkit-tap-highlight-color: rgba(#000, 0);
   transition: transform 150ms ease;
   outline: none;
   &.menu-open {
