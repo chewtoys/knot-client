@@ -85,7 +85,12 @@ export default {
         w: item.w,
         h: item.h
       }
-      this.photoswipe = new PhotoSwipe(this.$el, PhotoSwipeDefaultUI, [image], options)
+      this.photoswipe = new PhotoSwipe(
+        this.$el,
+        PhotoSwipeDefaultUI,
+        [image],
+        options
+      )
       this.photoswipe.init()
     },
     close() {

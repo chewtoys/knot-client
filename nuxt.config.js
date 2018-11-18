@@ -2,6 +2,7 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
+  modern: true,
 
   /*
   ** Headers of the page
@@ -76,7 +77,8 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxt/purgecss'
   ],
   /*
   ** Axios module configuration
@@ -85,10 +87,20 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
   },
 
+  purgeCSS: {
+    mode: 'postcss'
+  },
+
   /*
   ** Build configuration
   */
   build: {
+    postcss: {
+      plugins: {
+        tailwindcss: './tailwind.js',
+        autoprefixer: {}
+      }
+    }
     /*
     ** You can extend webpack config here
     */
