@@ -2,7 +2,9 @@ import { ADD_COMMENT, SET_FEED, ADD_REACTION } from '~/store/mutation-types'
 import client from '~/store/client'
 
 const state = {
-  feed: []
+  feed: {
+    data: []
+  }
 }
 
 const getters = {
@@ -10,8 +12,12 @@ const getters = {
 }
 
 const mutations = {
-  [SET_FEED](state, items) {
-    state.feed = items
+  [SET_FEED](state, feed) {
+    if (feed.current_page === 1) {
+      state.feed = feed
+    } else {
+      state.feed = { ...feed, data: state.feed.data.concat(feed.data) }
+    }
   },
   [ADD_COMMENT](state, { id, comment }) {
     state.feed = state.feed.map(post => {
@@ -34,10 +40,10 @@ const mutations = {
 }
 
 const actions = {
-  fetchFeed({ commit }) {
+  fetchFeed({ commit }, page = 1) {
     client
       .withAuth()
-      .get(`/api/feed`)
+      .get(`/api/feed?page=${page}`)
       .then(res => {
         commit(SET_FEED, res)
       })

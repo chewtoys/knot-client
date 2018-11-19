@@ -48,6 +48,13 @@ module.exports = {
         href:
           'https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700'
       }
+    ],
+    script: [
+      {
+        src:
+          'https://polyfill.io/v2/polyfill.min.js?features=IntersectionObserver',
+        body: true
+      }
     ]
   },
 

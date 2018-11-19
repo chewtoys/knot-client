@@ -1,6 +1,9 @@
 <template>
   <div class="overflow-y-auto scrolling-touch">
-    <ActivityFeed :posts="feed" />
+    <ActivityFeed :posts="feed.data" />
+    <div
+      ref="scrollObserver"
+      class="h-12" />
   </div>
 </template>
 
@@ -23,6 +26,16 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.fetchFeed()
+      const observer = new IntersectionObserver(([entry], observer) => {
+        if (entry.intersectionRatio > 0) {
+          if (this.feed.current_page < this.feed.last_page) {
+            this.fetchFeed(this.feed.current_page + 1)
+          } else {
+            observer.disconnect()
+          }
+        }
+      })
+      observer.observe(this.$refs.scrollObserver)
     })
   },
   methods: {
