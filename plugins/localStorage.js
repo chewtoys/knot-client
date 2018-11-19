@@ -8,7 +8,7 @@ export default ({ store }) => {
           const state = JSON.parse(window.localStorage.vuex)
           if (state.posts.feed.length) {
             state.posts.feed.current_page = 1
-            state.posts.feed.data = state.posts.feed.data.slice(0, 30)
+            state.posts.feed.data = state.posts.feed.data.slice(0, 20)
           }
 
           return state
