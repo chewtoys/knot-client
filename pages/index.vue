@@ -3,7 +3,7 @@
     <ActivityFeed :posts="feed.data" />
     <div
       ref="scrollObserver"
-      class="h-12" />
+      class="h-4" />
   </div>
 </template>
 
@@ -23,9 +23,20 @@ export default {
   computed: {
     ...mapGetters(['user', 'feed'])
   },
+  watch: {
+    feed: function() {
+      this.bindIntersectionObserver()
+    }
+  },
   mounted() {
-    this.$nextTick(() => {
-      this.fetchFeed()
+    this.$nextTick(async () => {
+      await this.fetchFeed()
+      this.bindIntersectionObserver()
+    })
+  },
+  methods: {
+    ...mapActions(['fetchFeed']),
+    bindIntersectionObserver() {
       const observer = new IntersectionObserver(([entry], observer) => {
         if (entry.intersectionRatio > 0) {
           if (this.feed.current_page < this.feed.last_page) {
@@ -36,10 +47,7 @@ export default {
         }
       })
       observer.observe(this.$refs.scrollObserver)
-    })
-  },
-  methods: {
-    ...mapActions(['fetchFeed'])
+    }
   }
 }
 </script>
