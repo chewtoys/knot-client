@@ -3,6 +3,8 @@ import client from '~/store/client'
 
 const state = {
   feed: {
+    current_page: 1,
+    last_page: 1,
     data: []
   }
 }
