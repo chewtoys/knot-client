@@ -22,7 +22,6 @@ const mutations = {
     }
   },
   [ADD_COMMENT](state, { id, comment }) {
-    console.log(id, comment)
     state.feed.data = state.feed.data.map(post => {
       if (post.id === id) {
         return { ...post, comments: [...post.comments, comment] }
@@ -32,12 +31,12 @@ const mutations = {
     })
   },
   [ADD_REACTION](state, { id, reactions }) {
-    state.feed = state.feed.map(post => {
+    state.feed.data = state.feed.data.map(post => {
       if (post.id === id) {
-        post.reactions = reactions
+        return { ...post, reactions }
+      } else {
+        return post
       }
-
-      return post
     })
   }
 }
