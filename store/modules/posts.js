@@ -18,16 +18,17 @@ const mutations = {
     if (feed.current_page === 1) {
       state.feed = feed
     } else {
-      state.feed = { ...feed, data: state.feed.data.concat(feed.data) }
+      state.feed = { ...feed, data: [...state.feed.data, feed.data] }
     }
   },
   [ADD_COMMENT](state, { id, comment }) {
-    state.feed = state.feed.map(post => {
+    console.log(id, comment)
+    state.feed.data = state.feed.data.map(post => {
       if (post.id === id) {
-        post.comments.push(comment)
+        return { ...post, comments: [...post.comments, comment] }
+      } else {
+        return post
       }
-
-      return post
     })
   },
   [ADD_REACTION](state, { id, reactions }) {

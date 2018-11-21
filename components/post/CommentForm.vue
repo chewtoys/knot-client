@@ -2,7 +2,7 @@
   <div class="dashboard-activity-feed-post-comment-form">
     <form @submit.prevent="doAddComment">
       <textarea
-        v-model="comment"
+        v-model="comment.body"
         placeholder="Add a comment..." />
       <button
         :disabled="commentEmpty || postingComment"
@@ -23,30 +23,43 @@ export default {
   },
   data() {
     return {
-      comment: '',
+      comment: {
+        id: -1,
+        body: '',
+        location: {}
+      },
       postingComment: false
     }
   },
   computed: {
     ...mapGetters(['currentLocation']),
     commentEmpty() {
-      return this.comment.trim() === ''
+      return this.comment.body.trim() === ''
+    },
+    locationPostData() {
+      return Object.keys(this.comment.location).length
+        ? this.comment.location
+        : null
     }
   },
   methods: {
     ...mapActions(['addComment']),
     doAddComment() {
       this.postingComment = true
-      let commentData = {
-        id: this.postId,
-        body: this.comment
-      }
+      this.comment.id = this.postId
+
       if (this.currentLocation.city !== null) {
-        commentData.location = this.currentLocation
+        this.comment.location = this.currentLocation
       }
+
+      let commentData = {
+        ...this.comment,
+        location: this.locationPostData
+      }
+
       this.addComment(commentData).then(res => {
         this.postingComment = false
-        this.comment = ''
+        this.comment.body = ''
       })
     }
   }
