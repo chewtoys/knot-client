@@ -108,6 +108,19 @@ export default {
       } else {
         return "I'm with..."
       }
+    },
+    accompanimentsPostData() {
+      const a = this.post.accompaniments.map(friend => {
+        return {
+          user_id: friend.id,
+          name: friend.full_name
+        }
+      })
+
+      return a.length ? a : null
+    },
+    locationPostData() {
+      return Object.keys(this.post.location).length ? this.post.location : null
     }
   },
   methods: {
@@ -121,27 +134,23 @@ export default {
     },
     attachLocation(place) {
       this.addingLocation = false
-      this.post = Object.assign({}, this.post, { location: place })
+      this.post.location = place
     },
     newPhotoPost() {
       this.posting = true
       const { file, image } = this.$refs.pictureInput
       processImage(file, image, async blob => {
         this.post.image = blob
+
         const postData = {
           ...this.post,
-          accompaniments: this.post.accompaniments.map(friend => {
-            return {
-              user_id: friend.id,
-              name: friend.full_name
-            }
-          })
-        }
-        if (!postData.accompaniments.length) {
-          delete postData.accompaniments
+          accompaniments: this.accompanimentsPostData,
+          location: this.locationPostData
         }
         const formData = objectToFormData(postData, { indices: true })
+
         await this.addPhotoPost(formData)
+
         this.posting = false
         this.$router.push('/')
       })

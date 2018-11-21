@@ -39,10 +39,10 @@ export default {
 }
 .toggle-menu {
   -webkit-tap-highlight-color: rgba(#000, 0);
-  transition: transform 150ms ease;
+  transition: transform 350ms ease;
   outline: none;
   &.menu-open {
-    transform: rotate(135deg);
+    transform: rotate(315deg);
   }
 }
 </style>

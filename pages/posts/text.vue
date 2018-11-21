@@ -94,6 +94,19 @@ export default {
       } else {
         return "I'm with..."
       }
+    },
+    accompanimentsPostData() {
+      const a = this.post.accompaniments.map(friend => {
+        return {
+          user_id: friend.id,
+          name: friend.full_name
+        }
+      })
+
+      return a.length ? a : null
+    },
+    locationPostData() {
+      return Object.keys(this.post.location).length ? this.post.location : null
     }
   },
   methods: {
@@ -107,19 +120,17 @@ export default {
     },
     attachLocation(place) {
       this.addingLocation = false
-      this.post = Object.assign({}, this.post, { location: place })
+      this.post.location = place
     },
     async newTextPost() {
       this.posting = true
+
       await this.addTextPost({
         ...this.post,
-        accompaniments: this.post.accompaniments.map(friend => {
-          return {
-            user_id: friend.id,
-            name: friend.full_name
-          }
-        })
+        accompaniments: this.accompanimentsPostData,
+        location: this.locationPostData
       })
+
       this.posting = false
       this.$router.push('/')
     }
