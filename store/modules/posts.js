@@ -18,7 +18,7 @@ const mutations = {
     if (feed.current_page === 1) {
       state.feed = feed
     } else {
-      state.feed = { ...feed, data: [...state.feed.data, feed.data] }
+      state.feed = { ...feed, data: [...state.feed.data, ...feed.data] }
     }
   },
   [ADD_COMMENT](state, { id, comment }) {

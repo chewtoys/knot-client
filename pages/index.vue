@@ -30,14 +30,19 @@ export default {
   },
   mounted() {
     this.$nextTick(async () => {
+      this.observer = null
       await this.fetchFeed()
-      this.bindIntersectionObserver()
     })
   },
   methods: {
     ...mapActions(['fetchFeed']),
     bindIntersectionObserver() {
-      const observer = new IntersectionObserver(([entry], observer) => {
+      if (this.observer) {
+        this.observer.disconnect()
+      }
+
+      this.observer = null
+      this.observer = new IntersectionObserver(([entry], observer) => {
         if (entry.intersectionRatio > 0) {
           if (this.feed.current_page < this.feed.last_page) {
             this.fetchFeed(this.feed.current_page + 1)
@@ -46,7 +51,7 @@ export default {
           }
         }
       })
-      observer.observe(this.$refs.scrollObserver)
+      this.observer.observe(this.$refs.scrollObserver)
     }
   }
 }
