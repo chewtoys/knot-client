@@ -1,6 +1,9 @@
 <template>
   <div class="post-reactions border-t border-grey-light px-5 pt-2 pb-0">
-    <ul class="post-reaction-list list-reset flex flex-wrap">
+    <transition-group
+      name="post-reaction-list"
+      tag="ul"
+      class="post-reaction-list list-reset flex flex-wrap">
       <li
         v-for="reaction in post.reactions"
         :key="reaction.id"
@@ -15,7 +18,7 @@
           height="18"
           class="post-reaction-icon absolute w-4 h-4">
       </li>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
@@ -51,6 +54,18 @@ export default {
 </script>
 
 <style lang="scss">
+.post-reaction {
+  transition: all 350ms;
+}
+.post-reaction-list-enter,
+.post-reaction-list-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.post-reaction-list-leave-active {
+  position: absolute;
+}
+
 img.post-reaction-icon {
   position: absolute;
   bottom: 0px;
