@@ -8,7 +8,7 @@
         :user="comment.user"
         :size="30"
         class="rounded-sm mr-2" />
-      <div>
+      <div style="position:relative;top:-2px;">
         <div class="text-sm mb-1">
           <strong>{{ comment.user.first_name }}: </strong> {{ comment.body }}
         </div>
