@@ -3,7 +3,7 @@
     <Avatar
       :user="post.user"
       class="rounded-sm mr-3" />
-    <div class="flex flex-col">
+    <div class="flex flex-col relative nudge-b">
       <div class="text-grey-darkest text-sm font-semibold leading-normal">{{ post.user.first_name }}</div>
       <LiveDate
         :date="post.created_at"

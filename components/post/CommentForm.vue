@@ -1,13 +1,19 @@
 <template>
   <div class="dashboard-activity-feed-post-comment-form">
-    <form @submit.prevent="doAddComment">
+    <form
+      class="flex items-start py-4 pr-5"
+      @submit.prevent="doAddComment">
       <textarea
         v-model="comment.body"
+        class="text-sm px-5"
         placeholder="Add a comment..." />
-      <button
-        :disabled="commentEmpty || postingComment"
-        type="submit"
-        class="button is-small is-primary">Send</button>
+      <transition name="fade">
+        <button
+          v-if="!commentEmpty"
+          :disabled="postingComment"
+          type="submit"
+          class="rounded-full uppercase text-white tracking-wide font-medium bg-primary py-1 px-2 text-xs">Send</button>
+      </transition>
     </form>
   </div>
 </template>
@@ -68,22 +74,12 @@ export default {
 <style lang="scss">
 .dashboard-activity-feed-post-comment-form {
   border-top: 1px solid rgba(#000, 0.1);
-  padding: 10px;
-  form {
-    display: flex;
-    textarea {
-      border: none;
-      outline: none;
-      flex-grow: 1;
-      font-size: 13px;
-      margin-right: 10px;
-      min-height: 27px;
-      padding: 10px;
-      resize: none;
-    }
-    .button {
-      align-self: flex-start;
-    }
+  textarea {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    min-height: 27px;
+    resize: none;
   }
 }
 </style>
