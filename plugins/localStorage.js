@@ -7,8 +7,8 @@ export default ({ store }) => {
       getState() {
         if (window.localStorage.getItem('vuex')) {
           const state = JSON.parse(window.localStorage.getItem('vuex'))
-          const feed = get(state, 'posts.feed', {})
-          const feedData = get(feed, 'data', [])
+          let feed = get(state, 'posts.feed', {})
+          let feedData = get(feed, 'data', [])
           if (feedData.length) {
             feed.current_page = 1
             feedData = feedData.slice(0, 20)
