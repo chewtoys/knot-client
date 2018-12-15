@@ -1,4 +1,5 @@
 import createPersistedState from 'vuex-persistedstate'
+import get from 'lodash/get'
 
 export default ({ store }) => {
   window.onNuxtReady(() => {
@@ -6,9 +7,11 @@ export default ({ store }) => {
       getState() {
         if (window.localStorage.getItem('vuex')) {
           const state = JSON.parse(window.localStorage.getItem('vuex'))
-          if (state.posts && state.posts.feed.length) {
-            state.posts.feed.current_page = 1
-            state.posts.feed.data = state.posts.feed.data.slice(0, 20)
+          const feed = get(state, 'posts.feed', {})
+          const feedData = get(feed, 'data', [])
+          if (feedData.length) {
+            feed.current_page = 1
+            feedData = feedData.slice(0, 20)
           }
 
           return state
