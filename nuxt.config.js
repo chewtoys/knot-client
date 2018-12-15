@@ -3,7 +3,6 @@ const pkg = require('./package')
 module.exports = {
   mode: 'universal',
   modern: true,
-
   /*
   ** Headers of the page
   */
@@ -71,10 +70,11 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/bugsnag', ssr: false },
     { src: '~/plugins/event-bus.js', ssr: true },
     { src: '~/plugins/localStorage.js', ssr: false },
-    { src: '~plugins/lazysizes.js', ssr: false },
-    { src: '~plugins/vue-picture-input.js', ssr: false }
+    { src: '~/plugins/lazysizes.js', ssr: false },
+    { src: '~/plugins/vue-picture-input.js', ssr: false }
   ],
 
   /*
