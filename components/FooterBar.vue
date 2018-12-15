@@ -11,7 +11,8 @@
     <button
       :class="{'menu-open': menuOpen}"
       class="toggle-menu rounded-full bg-red w-8 h-8 text-white block no-underline text-xl text-center flex justify-center items-center leading-none cursor-pointer mx-6"
-      @click="$emit('addNewPost')">+</button>
+      @click="$emit('addNewPost')"><img
+        src="~/assets/img/icons/add.svg"></button>
     <nuxt-link
       to="/friends"
       class="flex flex-col text-xxs no-underline text-grey-darkest mx-6">
@@ -39,8 +40,13 @@ export default {
 }
 .toggle-menu {
   -webkit-tap-highlight-color: rgba(#000, 0);
-  transition: transform 350ms ease;
+  transition: transform 450ms ease;
   outline: none;
+
+  img {
+    height: 24px;
+  }
+
   &.menu-open {
     transform: rotate(315deg);
   }
