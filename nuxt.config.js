@@ -113,6 +113,11 @@ module.exports = {
         tailwindcss: './tailwind.js',
         autoprefixer: {}
       }
+    },
+    extend(config, { isClient }) {
+      if (isClient) {
+        config.devtool = '#source-map'
+      }
     }
     /*
     ** You can extend webpack config here
