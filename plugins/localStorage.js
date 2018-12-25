@@ -8,18 +8,18 @@ export default ({ store }) => {
         if (window.localStorage.getItem('vuex')) {
           const state = JSON.parse(window.localStorage.getItem('vuex'))
           let timeline = get(state, 'posts.timeline', {})
-          let userFeed = get(state, 'posts.userFeed', {})
+          let selectedProfile = get(state, 'posts.selectedProfile', {})
           let timelineData = get(timeline, 'data', [])
-          let userFeedData = get(userFeed, 'data', [])
+          let selectedProfileData = get(selectedProfile, 'posts.data', [])
 
           if (timelineData.length) {
             timeline.current_page = 1
             timelineData = timelineData.slice(0, 20)
           }
 
-          if (userFeedData.length) {
-            userFeed.current_page = 1
-            userFeedData = userFeedData.slice(0, 20)
+          if (selectedProfileData.length) {
+            selectedProfile.posts.current_page = 1
+            selectedProfileData = selectedProfileData.slice(0, 20)
           }
 
           return state
