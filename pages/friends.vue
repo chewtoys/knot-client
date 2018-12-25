@@ -52,7 +52,7 @@
         :key="friend.id"
         class="flex items-center p-4 border-b border-grey-lighter">
         <nuxt-link
-          :to="`/profile/${reaction.user.id}`"
+          :to="`/profile/${friend.id}`"
           class="block flex-no-shrink">
           <Avatar
             :user="friend"
