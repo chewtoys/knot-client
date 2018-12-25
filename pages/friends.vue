@@ -7,7 +7,7 @@
       <li
         v-for="sent in friendships.outgoing"
         :key="sent.id"
-        class="flex items-center p-4 border-b border-grey-lighter">
+        class="flex items-center p-4 bg-white border-b border-grey-light">
         <Avatar
           :user="sent.recipient"
           class="rounded-sm mr-2" />
@@ -24,7 +24,7 @@
       <li
         v-for="req in friendships.requests"
         :key="req.id"
-        class="flex items-center p-4 border-b border-grey-lighter">
+        class="flex items-center p-4 bg-white border-b border-grey-light">
         <Avatar
           :user="req.sender"
           class="rounded-sm mr-2" />
@@ -50,10 +50,10 @@
       <li
         v-for="friend in friendships.friends"
         :key="friend.id"
-        class="flex items-center p-4 border-b border-grey-lighter">
+        class="bg-white border-b border-grey-light">
         <nuxt-link
           :to="`/profile/${friend.id}`"
-          class="block flex-no-shrink">
+          class="flex items-center flex-no-shrink p-4 text-grey-darkest no-underline">
           <Avatar
             :user="friend"
             class="rounded-sm mr-2" />
@@ -68,7 +68,7 @@
       <li
         v-for="user in friendships.suggested"
         :key="user.id"
-        class="flex items-center p-4 border-b border-grey-lighter">
+        class="flex items-center p-4 bg-white border-b border-grey-light">
         <Avatar
           :user="user"
           class="rounded-sm mr-2" />
