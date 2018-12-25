@@ -1,9 +1,11 @@
 <template>
   <div class="flex items-center px-5 h-16">
-    <nuxt-link :to="`/profile/${post.user.id}`">
+    <nuxt-link
+      :to="`/profile/${post.user.id}`"
+      class="flex-no-shrink mr-3">
       <Avatar
         :user="post.user"
-        class="rounded-sm mr-3" />
+        class="rounded-sm" />
     </nuxt-link>
     <div class="flex flex-col relative nudge-b">
       <div class="text-grey-darkest text-sm font-semibold leading-normal">{{ post.user.first_name }}</div>
@@ -32,7 +34,7 @@
           class="h-6">
       </button>
     </div>
-  </nuxt-link></nuxt-link></div>
+  </div>
 </template>
 <script>
 import AddReaction from '~/components/post/AddReaction'
