@@ -51,10 +51,14 @@
         v-for="friend in friendships.friends"
         :key="friend.id"
         class="flex items-center p-4 border-b border-grey-lighter">
-        <Avatar
-          :user="friend"
-          class="rounded-sm mr-2" />
-        <div class="font-medium">{{ friend.full_name }}</div>
+        <nuxt-link
+          :to="`/profile/${reaction.user.id}`"
+          class="block flex-no-shrink">
+          <Avatar
+            :user="friend"
+            class="rounded-sm mr-2" />
+          <div class="font-medium">{{ friend.full_name }}</div>
+        </nuxt-link>
       </li>
     </ul>
     <ul
