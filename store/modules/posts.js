@@ -1,7 +1,7 @@
 import {
   ADD_COMMENT,
   SET_TIMELINE,
-  SET_USER_FEED,
+  SET_SELECTED_PROFILE,
   ADD_REACTION
 } from '~/store/mutation-types'
 import client from '~/store/client'
@@ -12,16 +12,19 @@ const state = {
     last_page: 1,
     data: []
   },
-  userFeed: {
-    current_page: 1,
-    last_page: 1,
-    data: []
+  selectedProfile: {
+    user: {},
+    posts: {
+      current_page: 1,
+      last_page: 1,
+      data: []
+    }
   }
 }
 
 const getters = {
   timeline: state => state.timeline,
-  userFeed: state => state.userFeed
+  selectedProfile: state => state.selectedProfile
 }
 
 const mutations = {
@@ -35,13 +38,16 @@ const mutations = {
       }
     }
   },
-  [SET_USER_FEED](state, userFeed) {
-    if (userFeed.current_page === 1) {
-      state.userFeed = userFeed
+  [SET_SELECTED_PROFILE](state, profile) {
+    if (profile.posts.current_page === 1) {
+      state.selectedProfile = profile
     } else {
-      state.userFeed = {
-        ...userFeed,
-        data: [...state.userFeed.data, ...userFeed.data]
+      state.selectedProfile = {
+        user: profile.user,
+        posts: {
+          ...profile.posts,
+          data: [...state.selectedProfile.posts.data, ...profile.posts.data]
+        }
       }
     }
   },
@@ -53,13 +59,15 @@ const mutations = {
         return post
       }
     })
-    state.userFeed.data = state.userFeed.data.map(post => {
-      if (post.id === id) {
-        return { ...post, comments: [...post.comments, comment] }
-      } else {
-        return post
+    state.selectedProfile.posts.data = state.selectedProfile.posts.data.map(
+      post => {
+        if (post.id === id) {
+          return { ...post, comments: [...post.comments, comment] }
+        } else {
+          return post
+        }
       }
-    })
+    )
   },
   [ADD_REACTION](state, { id, reactions }) {
     state.timeline.data = state.timeline.data.map(post => {
@@ -69,13 +77,15 @@ const mutations = {
         return post
       }
     })
-    state.userFeed.data = state.userFeed.data.map(post => {
-      if (post.id === id) {
-        return { ...post, reactions }
-      } else {
-        return post
+    state.selectedProfile.posts.data = state.selectedProfile.posts.data.map(
+      post => {
+        if (post.id === id) {
+          return { ...post, reactions }
+        } else {
+          return post
+        }
       }
-    })
+    )
   }
 }
 
@@ -88,12 +98,12 @@ const actions = {
         commit(SET_TIMELINE, res)
       })
   },
-  fetchUserFeed({ commit }, { id, page = 1 }) {
+  fetchSelectedProfile({ commit }, { id, page = 1 }) {
     client
       .withAuth()
       .get(`/api/feed/${id}?page=${page}`)
       .then(res => {
-        commit(SET_USER_FEED, res)
+        commit(SET_SELECTED_PROFILE, res)
       })
   },
   addComment({ commit }, commentData) {

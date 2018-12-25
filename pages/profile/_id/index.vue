@@ -2,7 +2,9 @@
   <div class="overflow-y-auto scrolling-touch">
     <div class="h-32 bg-grey-light bg-cover cover-photo" />
     <div class="flex items-start p-4 -mt-16">
-      <div class="relative">
+      <div
+        v-if="parseInt($route.params.id, 10) === user.id"
+        class="relative">
         <input
           ref="fileInput"
           type="file"
@@ -17,12 +19,17 @@
           v-show="uploadingAvatar"
           class="flex justify-center items-center w-16 h-16 rounded bg-black-75 absolute pin-t pin-l text-white text-xs">Loading...</div>
       </div>
+      <div v-else>
+        <Avatar
+          :user="selectedProfile.user"
+          class="rounded w-16 mr-3 shadow-md" />
+      </div>
       <div>
-        <h3 class="text-white font-light text-shadow">{{ user.first_name }}</h3>
-        <h3 class="text-white font-light text-shadow">{{ user.last_name }}</h3>
+        <h3 class="text-white font-light text-shadow">{{ selectedProfile.user.first_name }}</h3>
+        <h3 class="text-white font-light text-shadow">{{ selectedProfile.user.last_name }}</h3>
       </div>
     </div>
-    <ActivityFeed :posts="userFeed.data" />
+    <ActivityFeed :posts="selectedProfile.posts.data" />
     <div
       ref="scrollObserver"
       class="h-4" />
@@ -45,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['user', 'userFeed'])
+    ...mapGetters(['user', 'selectedProfile'])
   },
   watch: {
     userFeed: function() {
@@ -58,14 +65,14 @@ export default {
       if (!this.user.id) {
         await this.fetchUser()
       }
-      await this.fetchUserFeed({
-        id: this.user.id,
+      await this.fetchSelectedProfile({
+        id: this.$route.params.id,
         page: 1
       })
     })
   },
   methods: {
-    ...mapActions(['fetchUser', 'fetchUserFeed', 'updateAvatar']),
+    ...mapActions(['fetchUser', 'fetchSelectedProfile', 'updateAvatar']),
     bindIntersectionObserver() {
       if (this.observer) {
         this.observer.disconnect()

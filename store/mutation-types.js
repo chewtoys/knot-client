@@ -1,6 +1,6 @@
 export const SET_USER = 'SET_USER'
 export const SET_TIMELINE = 'SET_TIMELINE'
-export const SET_USER_FEED = 'SET_USER_FEED'
+export const SET_SELECTED_PROFILE = 'SET_SELECTED_PROFILE'
 export const SET_FRIENDSHIPS = 'SET_FRIENDSHIPS'
 
 export const ADD_COMMENT = 'ADD_COMMENT'
