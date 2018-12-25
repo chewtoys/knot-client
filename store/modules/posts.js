@@ -101,7 +101,7 @@ const actions = {
   fetchSelectedProfile({ commit }, { id, page = 1 }) {
     client
       .withAuth()
-      .get(`/api/feed/${id}?page=${page}`)
+      .get(`/api/profile/${id}?page=${page}`)
       .then(res => {
         commit(SET_SELECTED_PROFILE, res)
       })
