@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-y-auto scrolling-touch">
-    <ActivityFeed :posts="feed.data" />
+    <ActivityFeed :posts="timeline.data" />
     <div
       ref="scrollObserver"
       class="h-4" />
@@ -21,21 +21,21 @@ export default {
     NavigationBar
   },
   computed: {
-    ...mapGetters(['user', 'feed'])
+    ...mapGetters(['user', 'timeline'])
   },
   watch: {
-    feed: function() {
+    timeline: function() {
       this.bindIntersectionObserver()
     }
   },
   mounted() {
     this.$nextTick(async () => {
       this.observer = null
-      await this.fetchFeed()
+      await this.fetchTimeline()
     })
   },
   methods: {
-    ...mapActions(['fetchFeed']),
+    ...mapActions(['fetchTimeline']),
     bindIntersectionObserver() {
       if (this.observer) {
         this.observer.disconnect()
@@ -44,8 +44,8 @@ export default {
       this.observer = null
       this.observer = new IntersectionObserver(([entry], observer) => {
         if (entry.intersectionRatio > 0) {
-          if (this.feed.current_page < this.feed.last_page) {
-            this.fetchFeed(this.feed.current_page + 1)
+          if (this.timeline.current_page < this.timeline.last_page) {
+            this.fetchTimeline(this.timeline.current_page + 1)
           } else {
             observer.disconnect()
           }
@@ -56,11 +56,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.dashboard-index {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 44px 1fr 48px;
-}
-</style>

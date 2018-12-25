@@ -4,10 +4,12 @@
       v-for="comment in comments"
       :key="comment.id"
       class="flex items-start px-5 py-4 border-t border-grey-light">
-      <Avatar
-        :user="comment.user"
-        :size="30"
-        class="rounded-sm mr-2" />
+      <nuxt-link :to="`/profile/${comment.user.id}`">
+        <Avatar
+          :user="comment.user"
+          :size="30"
+          class="rounded-sm mr-2" />
+      </nuxt-link>
       <div style="position:relative;top:-4px;">
         <div class="text-sm mb-1 leading-normal text-grey-darkest">
           <strong>{{ comment.user.first_name }}: </strong> {{ comment.body }}

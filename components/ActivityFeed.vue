@@ -28,12 +28,6 @@ export default {
       }
     }
   },
-  computed: {
-    feedHasImagePost() {
-      return !!this.posts.filter(post => this.getPostType(post) === 'PhotoPost')
-        .length
-    }
-  },
   methods: {
     getPostType(post) {
       return post.postable_type.split('\\').pop()

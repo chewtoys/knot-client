@@ -8,10 +8,12 @@
         v-for="reaction in post.reactions"
         :key="reaction.id"
         class="post-reaction leading-none mr-2 mb-2 relative">
-        <Avatar
-          :user="reaction.user"
-          :size="25"
-          class="rounded-sm" />
+        <nuxt-link :to="`/profile/${reaction.user.id}`">
+          <Avatar
+            :user="reaction.user"
+            :size="25"
+            class="rounded-sm" />
+        </nuxt-link>
         <img
           :src="reactionIconPath(reaction)"
           width="18"

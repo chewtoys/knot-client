@@ -79,6 +79,15 @@ const actions = {
       .then(res => {
         commit(SET_FRIENDSHIPS, res)
       })
+  },
+  updateAvatar({ commit }, formData) {
+    console.log(formData)
+    return client
+      .withAuth()
+      .post('/api/profile/avatar', formData)
+      .then(res => {
+        commit(SET_USER, res)
+      })
   }
 }
 
