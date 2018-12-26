@@ -81,10 +81,13 @@ export default {
       this.observer = null
       this.observer = new IntersectionObserver(([entry], observer) => {
         if (entry.intersectionRatio > 0) {
-          if (this.userFeed.current_page < this.userFeed.last_page) {
-            this.fetchUserFeed({
+          if (
+            this.selectedProfile.posts.current_page <
+            this.selectedProfile.posts.last_page
+          ) {
+            this.fetchSelectedProfile({
               id: this.user.id,
-              page: this.userFeed.current_page + 1
+              page: this.selectedProfile.posts.current_page + 1
             })
           } else {
             observer.disconnect()
