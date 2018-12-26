@@ -55,7 +55,7 @@ export default {
     ...mapGetters(['user', 'selectedProfile'])
   },
   watch: {
-    userFeed: function() {
+    selectedProfile: function() {
       this.bindIntersectionObserver()
     }
   },
