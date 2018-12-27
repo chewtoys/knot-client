@@ -112,10 +112,11 @@ export default {
           })
         },
         {
+          canvas: true,
+          crop: true,
           maxWidth: 600,
           maxHeight: 600,
-          crop: true,
-          canvas: true
+          orientation: true
         }
       )
     }

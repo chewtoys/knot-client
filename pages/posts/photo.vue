@@ -159,10 +159,11 @@ export default {
           }, 'image/jpeg')
         },
         {
+          canvas: true,
+          contain: true,
           maxWidth: 1200,
           maxHeight: 1600,
-          contain: true,
-          canvas: true
+          orientation: true
         }
       )
     }
