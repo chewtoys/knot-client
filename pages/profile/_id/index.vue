@@ -39,6 +39,7 @@
 import ActivityFeed from '~/components/ActivityFeed'
 import Avatar from '~/components/Avatar'
 import { mapActions, mapGetters } from 'vuex'
+import loadImage from 'blueimp-load-image'
 export default {
   middleware: 'auth',
   layout: 'dashboard',
@@ -98,12 +99,25 @@ export default {
     },
     async doUpdateAvatar() {
       this.uploadingAvatar = true
-      const formData = new FormData()
-      formData.append('_method', 'PUT')
-      formData.append('avatar', this.$refs.fileInput.files[0])
-      await this.updateAvatar(formData)
-      this.uploadingAvatar = false
-      window.location.reload()
+      loadImage(
+        this.$refs.fileInput.files[0],
+        canvas => {
+          canvas.toBlob(async blob => {
+            const formData = new FormData()
+            formData.append('_method', 'PUT')
+            formData.append('avatar', blob)
+            await this.updateAvatar(formData)
+            this.uploadingAvatar = false
+            window.location.reload()
+          })
+        },
+        {
+          maxWidth: 600,
+          maxHeight: 600,
+          crop: true,
+          canvas: true
+        }
+      )
     }
   }
 }

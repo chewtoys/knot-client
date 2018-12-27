@@ -68,7 +68,7 @@ import AddLocation from '~/components/AddLocation'
 import AddAccompaniments from '~/components/AddAccompaniments'
 import NavigationBar from '~/components/NavigationBar'
 import { mapActions } from 'vuex'
-import { processImage } from '~/utils/process-image'
+import loadImage from 'blueimp-load-image'
 
 export default {
   name: 'NewPhotoPost',
@@ -138,22 +138,33 @@ export default {
     },
     newPhotoPost() {
       this.posting = true
-      const { file, image } = this.$refs.pictureInput
-      processImage(file, image, async blob => {
-        this.post.image = blob
+      const { file } = this.$refs.pictureInput
+      let loadedImg = loadImage(
+        file,
+        canvas => {
+          canvas.toBlob(async blob => {
+            this.post.image = blob
 
-        const postData = {
-          ...this.post,
-          accompaniments: this.accompanimentsPostData,
-          location: this.locationPostData
+            const postData = {
+              ...this.post,
+              accompaniments: this.accompanimentsPostData,
+              location: this.locationPostData
+            }
+            const formData = objectToFormData(postData, { indices: true })
+
+            await this.addPhotoPost(formData)
+
+            this.posting = false
+            this.$router.push('/')
+          }, 'image/jpeg')
+        },
+        {
+          maxWidth: 1200,
+          maxHeight: 1600,
+          contain: true,
+          canvas: true
         }
-        const formData = objectToFormData(postData, { indices: true })
-
-        await this.addPhotoPost(formData)
-
-        this.posting = false
-        this.$router.push('/')
-      })
+      )
     }
   }
 }
