@@ -20,7 +20,7 @@
       @click="$emit('addNewPost')"><img
         src="~/assets/img/icons/add.svg"></button>
     <nuxt-link
-      :to="`/profile/${user.id}`"
+      :to="`/profile/${$auth.user.id}`"
       class="flex text-xxs no-underline text-grey-darkest justify-center w-12">
       <img
         src="~/assets/img/icons/profile.svg"

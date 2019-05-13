@@ -9,6 +9,9 @@
         :is="getPostType(post)"
         :post="post" />
     </transition-group>
+    <div
+      ref="scrollObserver"
+      class="h-4" />
   </div>
 </template>
 <script>
@@ -27,6 +30,21 @@ export default {
         return []
       }
     }
+  },
+  data: () => ({
+    observer: null
+  }),
+  mounted() {
+    const options = {}
+    this.observer = new IntersectionObserver(([entry]) => {
+      if (entry && entry.isIntersecting) {
+        this.$emit('loadNextPage')
+      }
+    }, options)
+    this.observer.observe(this.$refs.scrollObserver)
+  },
+  destroyed() {
+    this.observer.disconnect()
   },
   methods: {
     getPostType(post) {

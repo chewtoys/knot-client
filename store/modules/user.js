@@ -1,9 +1,7 @@
 import { SET_USER, SET_FRIENDSHIPS } from '~/store/mutation-types'
 import client from '~/store/client'
-import { setToken } from '~/utils/auth'
 
 const state = {
-  user: {},
   friendships: {
     friends: [],
     requests: [],
@@ -13,14 +11,10 @@ const state = {
 }
 
 const getters = {
-  user: state => state.user,
   friendships: state => state.friendships
 }
 
 const mutations = {
-  [SET_USER](state, user) {
-    state.user = user
-  },
   [SET_FRIENDSHIPS](state, friendships) {
     state.friendships = friendships
   }
@@ -29,24 +23,8 @@ const mutations = {
 const actions = {
   register({ commit }, user) {
     return client.post('/api/auth/user', user).then(res => {
-      commit(SET_USER, res)
+      // commit(SET_USER, res)
     })
-  },
-  login({ commit }, credentials) {
-    return client
-      .withProxy()
-      .post('/api/auth', credentials)
-      .then(res => {
-        setToken(res.access_token)
-      })
-  },
-  fetchUser({ commit }) {
-    return client
-      .withAuth()
-      .get('/api/auth/user')
-      .then(res => {
-        commit(SET_USER, res)
-      })
   },
   fetchFriendships({ commit }) {
     return client
@@ -81,7 +59,6 @@ const actions = {
       })
   },
   updateAvatar({ commit }, formData) {
-    console.log(formData)
     return client
       .withAuth()
       .post('/api/profile/avatar', formData)

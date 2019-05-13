@@ -35,7 +35,6 @@ import NavigationBar from '~/components/NavigationBar'
 import FooterBar from '~/components/FooterBar'
 import PhotoSwipe from '~/components/PhotoSwipe.vue'
 export default {
-  middleware: 'auth',
   components: {
     FooterBar,
     NavigationBar,
@@ -47,7 +46,6 @@ export default {
     }
   },
   async mounted() {
-    await this.fetchUser()
     await this.fetchFriendships()
 
     navigator.geolocation.getCurrentPosition(position => {
@@ -55,7 +53,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['fetchUser', 'fetchFriendships', 'fetchCurrentLocation']),
+    ...mapActions(['fetchFriendships', 'fetchCurrentLocation']),
     showNewPostMenu() {
       this.newPostMenuShowing = !this.newPostMenuShowing
     },
@@ -71,10 +69,10 @@ export default {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 44px 1fr 48px;
-  grid-template-rows: calc(44px + constant(safe-area-inset-top)) 1fr calc(
-      48px + constant(safe-area-inset-bottom)
-    );
-  grid-template-rows: calc(44px + env(safe-area-inset-top)) 1fr calc(
+  grid-template-rows:
+    calc(44px + constant(safe-area-inset-top)) minmax(1px, 1fr)
+    calc(48px + constant(safe-area-inset-bottom));
+  grid-template-rows: calc(44px + env(safe-area-inset-top)) minmax(1px, 1fr) calc(
       48px + env(safe-area-inset-bottom)
     );
 }

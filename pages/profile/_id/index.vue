@@ -3,7 +3,7 @@
     <div class="h-32 bg-grey-light bg-cover cover-photo" />
     <div class="flex items-start p-4 -mt-16">
       <div
-        v-if="parseInt($route.params.id, 10) === user.id"
+        v-if="parseInt($route.params.id, 10) === $auth.user.id"
         class="relative">
         <input
           ref="fileInput"
@@ -12,7 +12,8 @@
           class="hidden"
           @change="doUpdateAvatar">
         <Avatar
-          :user="user"
+          :user="$auth.user"
+          :size="64"
           class="rounded w-16 mr-3 shadow-md cursor-pointer"
           @click.native="$refs.fileInput.click()" />
         <div
@@ -29,10 +30,9 @@
         <h3 class="text-white font-light text-shadow">{{ selectedProfile.user.last_name }}</h3>
       </div>
     </div>
-    <ActivityFeed :posts="selectedProfile.posts.data" />
-    <div
-      ref="scrollObserver"
-      class="h-4" />
+    <ActivityFeed
+      :posts="selectedProfile.posts.data"
+      @loadNextPage="loadNextPage" />
   </div>
 </template>
 <script>
@@ -41,7 +41,6 @@ import Avatar from '~/components/Avatar'
 import { mapActions, mapGetters } from 'vuex'
 import loadImage from 'blueimp-load-image'
 export default {
-  middleware: 'auth',
   layout: 'dashboard',
   components: {
     ActivityFeed,
@@ -53,18 +52,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['user', 'selectedProfile'])
-  },
-  watch: {
-    selectedProfile: function() {
-      this.bindIntersectionObserver()
-    }
+    ...mapGetters(['selectedProfile'])
   },
   mounted() {
     this.$nextTick(async () => {
-      this.observer = null
-      if (!this.user.id) {
-        await this.fetchUser()
+      if (!this.$auth.user.id) {
+        await this.$auth.fetchUser()
       }
       await this.fetchSelectedProfile({
         id: this.$route.params.id,
@@ -73,29 +66,17 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['fetchUser', 'fetchSelectedProfile', 'updateAvatar']),
-    bindIntersectionObserver() {
-      if (this.observer) {
-        this.observer.disconnect()
+    ...mapActions(['fetchSelectedProfile', 'updateAvatar']),
+    async loadNextPage() {
+      if (
+        this.selectedProfile.posts.current_page <
+        this.selectedProfile.posts.last_page
+      ) {
+        await this.fetchSelectedProfile({
+          id: this.$auth.user.id,
+          page: this.selectedProfile.posts.current_page + 1
+        })
       }
-
-      this.observer = null
-      this.observer = new IntersectionObserver(([entry], observer) => {
-        if (entry.intersectionRatio > 0) {
-          if (
-            this.selectedProfile.posts.current_page <
-            this.selectedProfile.posts.last_page
-          ) {
-            this.fetchSelectedProfile({
-              id: this.user.id,
-              page: this.selectedProfile.posts.current_page + 1
-            })
-          } else {
-            observer.disconnect()
-          }
-        }
-      })
-      this.observer.observe(this.$refs.scrollObserver)
     },
     async doUpdateAvatar() {
       this.uploadingAvatar = true

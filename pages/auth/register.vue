@@ -46,7 +46,7 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
-  middleware: 'guest',
+  auth: false,
   components: {},
   data() {
     return {

@@ -5,19 +5,19 @@
       :style="{ paddingBottom: aspectRatio}"
       class="h-0 relative bg-grey-lightest">
       <div class="absolute pin-t pin-l w-full h-full">
-        <img
-          :data-src="post.postable.image_url"
+        <CldImage
+          :public-id="`${post.postable.image_path}.jpg`"
           :alt="post.postable.body"
           class="lazyload w-full"
-          @click="openPhoto(post.postable, $event)">
+          cloud-name="knot"
+          width="359"
+          crop="scale"
+          @click.native="openPhoto(post.postable, $event)" />
       </div>
     </div>
-    <div
+    <PostBody
       v-if="post.postable.body"
-      class="p-5 text-grey-darkest leading-normal text-sm">
-      <span>{{ post.postable.body }}</span>
-      <PostMeta :post="post" />
-    </div>
+      :post="post" />
     <Reactions
       v-if="post.reactions.length"
       :post="post" />
@@ -28,15 +28,16 @@
   </div>
 </template>
 <script>
+import cloudinary from 'cloudinary-core'
+import PostBody from '~/components/post/PostBody'
 import PostHeader from '~/components/post/PostHeader'
-import PostMeta from '~/components/post/PostMeta'
 import CommentForm from '~/components/post/CommentForm'
 import CommentsList from '~/components/post/CommentsList'
 import Reactions from '~/components/post/Reactions'
 export default {
   components: {
+    PostBody,
     PostHeader,
-    PostMeta,
     CommentForm,
     CommentsList,
     Reactions
@@ -47,16 +48,29 @@ export default {
       required: true
     }
   },
+  data: () => ({
+    cloudinaryCore: null
+  }),
   computed: {
     aspectRatio() {
       return `${(this.post.postable.height / this.post.postable.width) * 100}%`
+    },
+    cloudinaryUrl() {
+      if (this.cloudinaryCore) {
+        return this.cloudinaryCore.url(this.post.postable.image_path)
+      } else {
+        return null
+      }
     }
+  },
+  mounted() {
+    this.cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'knot' })
   },
   methods: {
     openPhoto(post, e) {
       const targetRect = e.target.getBoundingClientRect()
       this.$bus.$emit('OPEN_IMAGE', {
-        src: post.image_url,
+        src: this.cloudinaryUrl,
         w: post.width,
         h: post.height,
         thumb: {

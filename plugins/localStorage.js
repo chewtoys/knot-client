@@ -5,6 +5,7 @@ export default ({ store }) => {
   window.onNuxtReady(() => {
     createPersistedState({
       getState() {
+        const POSTS_PER_PAGE = 5
         if (window.localStorage.getItem('vuex')) {
           const state = JSON.parse(window.localStorage.getItem('vuex'))
           let timeline = get(state, 'posts.timeline', {})
@@ -14,12 +15,12 @@ export default ({ store }) => {
 
           if (timelineData.length) {
             timeline.current_page = 1
-            timelineData = timelineData.slice(0, 20)
+            timelineData = timelineData.slice(0, POSTS_PER_PAGE)
           }
 
           if (selectedProfileData.length) {
             selectedProfile.posts.current_page = 1
-            selectedProfileData = selectedProfileData.slice(0, 20)
+            selectedProfileData = selectedProfileData.slice(0, POSTS_PER_PAGE)
           }
 
           return state

@@ -29,9 +29,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 export default {
-  middleware: 'guest',
+  auth: false,
   components: {},
   data() {
     return {
@@ -42,10 +41,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['login', 'fetchUser']),
     async doLogin() {
-      await this.login(this.credentials)
-      await this.fetchUser()
+      await this.$auth.loginWith('local', {
+        data: {
+          email: this.credentials.email,
+          password: this.credentials.password
+        }
+      })
       this.$router.push('/')
     }
   }

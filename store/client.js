@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Promise } from 'es6-promise'
-import { getToken } from '~/utils/auth'
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
@@ -28,8 +27,8 @@ httpMethods.forEach(verb => {
         url: `${client.proxy ? '' : client.apiRoot}${url}`,
         data,
         headers:
-          client.auth && getToken()
-            ? { Authorization: `Bearer ${getToken()}`, ...headers }
+          client.auth && $nuxt.$auth.getToken('local')
+            ? { Authorization: $nuxt.$auth.getToken('local'), ...headers }
             : headers
       })
         .then(res => {

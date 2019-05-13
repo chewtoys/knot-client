@@ -1,9 +1,19 @@
 <template>
-  <img
-    :src="src"
+  <CldImage
+    v-if="user.profile_image"
+    :public-id="user.profile_image"
     :alt="user.name"
     :width="size"
     :height="size"
+    cloud-name="knot"
+    crop="scale"
+    class="avatar" />
+  <img
+    v-else
+    :src="fallback"
+    :width="size"
+    :height="size"
+    :alt="user.name"
     class="avatar">
 </template>
 <script>
@@ -21,11 +31,6 @@ export default {
     size: {
       type: Number,
       default: 35
-    }
-  },
-  computed: {
-    src() {
-      return this.user.avatar_url ? this.user.avatar_url : this.fallback
     }
   }
 }

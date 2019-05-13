@@ -70,11 +70,11 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/bugsnag.js', ssr: false },
     { src: '~/plugins/event-bus.js', ssr: true },
     { src: '~/plugins/localStorage.js', ssr: false },
     { src: '~/plugins/lazysizes.js', ssr: false },
-    { src: '~/plugins/vue-picture-input.js', ssr: false }
+    { src: '~/plugins/vue-picture-input.js', ssr: false },
+    { src: '~/plugins/cloudinary.js', ssr: true }
   ],
 
   /*
@@ -83,14 +83,59 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/dotenv',
-    'nuxt-purgecss'
+    'nuxt-purgecss',
+    [
+      'vue-warehouse/nuxt',
+      {
+        vuex: false,
+        plugins: ['store/plugins/expire'],
+        storages: ['store/storages/cookieStorage']
+      }
+    ]
   ],
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/api/auth',
+            method: 'post',
+            propertyName: 'access_token'
+          },
+          user: {
+            url: `${process.env.BASE_URL}/api/auth/user`,
+            method: 'get',
+            propertyName: false
+          },
+          logout: false
+        },
+        tokenRequired: true,
+        tokenType: 'Bearer'
+      }
+    },
+    redirect: {
+      login: '/auth/login',
+      home: '/'
+    },
+    localStorage: false,
+    cookie: {
+      options: {
+        expires: 365
+      }
+    }
+  },
   /*
   ** Axios module configuration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+  },
+
+  router: {
+    middleware: ['auth']
   },
 
   purgeCSS: {

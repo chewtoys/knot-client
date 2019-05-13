@@ -1,9 +1,10 @@
 <template>
   <div class="dashboard-activity-feed-post text-post bg-white mb-12">
     <PostHeader :post="post" />
-    <div class="border-t border-grey-light p-5 text-grey-darkest leading-normal text-sm">
-      <span>{{ post.postable.body }}</span>
-      <PostMeta :post="post" />
+    <div class="border-t border-grey-light">
+      <PostBody
+        v-if="post.postable.body"
+        :post="post" />
     </div>
     <Reactions
       v-show="post.reactions.length"
@@ -15,15 +16,15 @@
   </div>
 </template>
 <script>
+import PostBody from '~/components/post/PostBody'
 import PostHeader from '~/components/post/PostHeader'
-import PostMeta from '~/components/post/PostMeta'
 import CommentForm from '~/components/post/CommentForm'
 import CommentsList from '~/components/post/CommentsList'
 import Reactions from '~/components/post/Reactions'
 export default {
   components: {
+    PostBody,
     PostHeader,
-    PostMeta,
     CommentForm,
     CommentsList,
     Reactions
