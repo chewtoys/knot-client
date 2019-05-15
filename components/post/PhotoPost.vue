@@ -8,9 +8,8 @@
         <CldImage
           :public-id="`${post.postable.image_path}.jpg`"
           :alt="post.postable.body"
+          responsive="width"
           class="lazyload w-full"
-          cloud-name="knot"
-          width="359"
           crop="scale"
           @click.native="openPhoto(post.postable, $event)" />
       </div>
