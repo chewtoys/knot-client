@@ -72,7 +72,7 @@ export default {
 
 img.post-reaction-icon {
   position: absolute;
-  bottom: 0px;
+  bottom: -2px;
   right: -4px;
 }
 </style>

@@ -1,20 +1,24 @@
 <template>
-  <CldImage
-    v-if="user.profile_image"
-    :public-id="user.profile_image"
-    :alt="user.name"
-    :width="size"
-    :height="size"
-    crop="lfill"
-    class="avatar"
-    responsive="width" />
-  <img
-    v-else
-    :src="fallback"
-    :width="size"
-    :height="size"
-    :alt="user.name"
-    class="avatar">
+  <div
+    :style="{width: size + 'px', height: size + 'px'}"
+    class="overflow-hidden">
+    <CldImage
+      v-if="user.profile_image"
+      :public-id="user.profile_image"
+      :alt="user.name"
+      :width="size"
+      :height="size"
+      crop="lfill"
+      class="avatar"
+      responsive="width" />
+    <img
+      v-else
+      :src="fallback"
+      :width="size"
+      :height="size"
+      :alt="user.name"
+      class="avatar">
+  </div>
 </template>
 <script>
 export default {
