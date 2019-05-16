@@ -1,5 +1,4 @@
 const Koa = require('koa')
-const cors = require('@koa/cors')
 const api = require('./api')
 const bodyParser = require('koa-bodyparser')
 const consola = require('consola')
@@ -25,11 +24,6 @@ async function start() {
   }
 
   app
-    .use(
-      cors({
-        origin: '*'
-      })
-    )
     .use(bodyParser())
     .use(api.routes())
     .use(api.allowedMethods())
