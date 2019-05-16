@@ -132,7 +132,7 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    baseURL: 'https://knotapp.syropia.net'
+    baseURL: '/'
   },
 
   router: {

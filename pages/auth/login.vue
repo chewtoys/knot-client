@@ -50,7 +50,9 @@ export default {
           }
         })
         this.$router.push('/')
-      } catch (e) {}
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
