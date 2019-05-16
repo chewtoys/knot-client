@@ -5,8 +5,7 @@
     :alt="user.name"
     :width="size"
     :height="size"
-    cloud-name="knot"
-    crop="scale"
+    crop="lfill"
     class="avatar" />
   <img
     v-else
