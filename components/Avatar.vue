@@ -6,7 +6,8 @@
     :width="size"
     :height="size"
     crop="lfill"
-    class="avatar" />
+    class="avatar"
+    responsive="width" />
   <img
     v-else
     :src="fallback"
