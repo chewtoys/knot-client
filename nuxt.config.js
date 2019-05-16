@@ -1,3 +1,4 @@
+require('dotenv').config()
 const pkg = require('./package')
 
 module.exports = {
@@ -83,9 +84,9 @@ module.exports = {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
+    '@nuxtjs/dotenv',
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/dotenv',
     'nuxt-purgecss',
     [
       'vue-warehouse/nuxt',
