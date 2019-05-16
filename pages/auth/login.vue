@@ -42,13 +42,15 @@ export default {
   },
   methods: {
     async doLogin() {
-      await this.$auth.loginWith('local', {
-        data: {
-          email: this.credentials.email,
-          password: this.credentials.password
-        }
-      })
-      this.$router.push('/')
+      try {
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.credentials.email,
+            password: this.credentials.password
+          }
+        })
+        this.$router.push('/')
+      } catch (e) {}
     }
   }
 }
