@@ -102,7 +102,7 @@ module.exports = {
       local: {
         endpoints: {
           login: {
-            url: `${process.env.LOCAL_URL}/api/auth`,
+            url: '/api/auth',
             method: 'post',
             propertyName: 'access_token'
           },
