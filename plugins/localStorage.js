@@ -5,7 +5,7 @@ export default ({ store }) => {
   window.onNuxtReady(() => {
     createPersistedState({
       getState() {
-        const POSTS_PER_PAGE = 5
+        const POSTS_PER_PAGE = 10
         if (window.localStorage.getItem('vuex')) {
           const state = JSON.parse(window.localStorage.getItem('vuex'))
           let timeline = get(state, 'posts.timeline', {})
