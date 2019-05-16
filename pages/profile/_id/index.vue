@@ -23,6 +23,7 @@
       <div v-else>
         <Avatar
           :user="selectedProfile.user"
+          :size="64"
           class="rounded w-16 mr-3 shadow-md" />
       </div>
       <div>
@@ -56,9 +57,6 @@ export default {
   },
   mounted() {
     this.$nextTick(async () => {
-      if (!this.$auth.user.id) {
-        await this.$auth.fetchUser()
-      }
       await this.fetchSelectedProfile({
         id: this.$route.params.id,
         page: 1
@@ -73,7 +71,7 @@ export default {
         this.selectedProfile.posts.last_page
       ) {
         await this.fetchSelectedProfile({
-          id: this.$auth.user.id,
+          id: this.$route.params.id,
           page: this.selectedProfile.posts.current_page + 1
         })
       }
