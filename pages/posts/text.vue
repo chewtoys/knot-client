@@ -58,6 +58,7 @@ import NavigationBar from '~/components/NavigationBar'
 import { mapActions } from 'vuex'
 
 export default {
+  middleware: 'logged-in',
   name: 'NewTextPost',
   components: {
     AddAccompaniments,

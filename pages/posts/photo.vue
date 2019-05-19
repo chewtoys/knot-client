@@ -71,6 +71,7 @@ import { mapActions } from 'vuex'
 import loadImage from 'blueimp-load-image'
 
 export default {
+  middleware: 'logged-in',
   name: 'NewPhotoPost',
   components: {
     AddAccompaniments,
