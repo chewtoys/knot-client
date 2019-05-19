@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  auth: false,
+  middleware: 'guest',
   components: {},
   data() {
     return {

@@ -93,10 +93,7 @@ module.exports = {
       {
         vuex: false,
         plugins: ['store/plugins/expire'],
-        storages: [
-          'store/storages/localStorage',
-          'store/storages/cookieStorage'
-        ]
+        storages: ['store/storages/cookieStorage']
       }
     ]
   ],
@@ -122,9 +119,12 @@ module.exports = {
       }
     },
     redirect: {
-      login: '/auth/login',
-      home: '/'
+      login: false,
+      home: false,
+      logout: false,
+      callback: false
     },
+    localStorage: false,
     cookie: {
       options: {
         expires: 365
@@ -136,10 +136,6 @@ module.exports = {
   */
   axios: {
     baseURL: '/'
-  },
-
-  router: {
-    middleware: ['auth']
   },
 
   purgeCSS: {

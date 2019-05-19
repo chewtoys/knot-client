@@ -35,6 +35,7 @@ import NavigationBar from '~/components/NavigationBar'
 import FooterBar from '~/components/FooterBar'
 import PhotoSwipe from '~/components/PhotoSwipe.vue'
 export default {
+  middleware: 'logged-in',
   components: {
     FooterBar,
     NavigationBar,
