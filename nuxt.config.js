@@ -93,7 +93,10 @@ module.exports = {
       {
         vuex: false,
         plugins: ['store/plugins/expire'],
-        storages: ['store/storages/cookieStorage']
+        storages: [
+          'store/storages/localStorage',
+          'store/storages/cookieStorage'
+        ]
       }
     ]
   ],
@@ -122,7 +125,6 @@ module.exports = {
       login: '/auth/login',
       home: '/'
     },
-    localStorage: false,
     cookie: {
       options: {
         expires: 365
